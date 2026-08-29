@@ -4,95 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NTRIX IT SERVICES - Daily Kannada Motivation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tiro+Kannada&family=Segoe+UI&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Kannada&family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0c0f13;
-            --frame-color: #f7b32b; 
-            --main-text-color: #ffffff;
-            --tagline-color: #8b949e; 
-            /* CHANGED: Kannada text is now white */
-            --kannada-text-color: #ffffff; 
-            --gold-accent: #f7b32b; 
-            --cta-text-color: #0c0f13; 
+            --bg-color: #0f141a;
+            --panel-bg: #151a22;
+            --gold-bright: #ffcc00; 
+            --gold-glow: rgba(255, 204, 0, 0.6);
+            --gold-dim: rgba(255, 204, 0, 0.3);
+            --main-text: #ffffff;
+            --tagline-text: #8b949e; 
+            --kannada-text: #ffffff; /* Quote text set to white */
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--main-text-color);
+            color: var(--main-text);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
             background-image: 
-                radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 80%),
-                repeating-linear-gradient(rgba(12, 15, 19, 0) 0px, rgba(12, 15, 19, 0) 4px, rgba(0, 255, 255, 0.01) 4px, rgba(0, 255, 255, 0.01) 5px),
-                repeating-linear-gradient(90deg, rgba(12, 15, 19, 0) 0px, rgba(12, 15, 19, 0) 4px, rgba(0, 255, 255, 0.01) 4px, rgba(0, 255, 255, 0.01) 5px);
+                radial-gradient(circle at center, rgba(0, 255, 255, 0.03) 0%, transparent 70%),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
         }
 
+        /* Main Wrapper */
         .ntrix-banner {
             width: 100%;
-            max-width: 1000px;
-            height: auto;
-            min-height: 400px;
-            background-color: #0a0d11;
-            border-radius: 40px;
+            max-width: 1100px;
+            background-color: #12171d;
+            border-radius: 35px;
             padding: 20px;
-            box-shadow: 
-                inset 0 0 50px rgba(0, 255, 255, 0.05),
-                0 0 20px rgba(0, 255, 255, 0.02);
-            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             display: grid;
-            grid-template-columns: 200px 1fr 200px;
-            gap: 20px;
-            overflow: hidden;
-            border: 2px solid rgba(0, 255, 255, 0.05);
-        }
-
-        .ntrix-banner::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: linear-gradient(90deg, rgba(247, 179, 43, 0.01) 1px, transparent 1px), linear-gradient(0deg, rgba(247, 179, 43, 0.01) 1px, transparent 1px);
-            background-size: 20px 20px;
-            opacity: 0.5;
-            z-index: -1;
-        }
-
-        .central-card {
-            background-color: #10141a;
-            border: 3px solid var(--frame-color);
-            border-radius: 20px;
-            padding: 20px;
-            display: grid;
-            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 220px 1fr 220px;
             gap: 15px;
-            box-shadow: 
-                0 0 30px rgba(247, 179, 43, 0.15),
-                inset 0 0 20px rgba(247, 179, 43, 0.1);
+            position: relative;
         }
 
+        /* Side Panels (Coffee & Tea) */
         .side-panel {
-            background-color: #10141a;
-            border: 2px solid var(--frame-color);
-            border-radius: 20px;
+            background-color: var(--panel-bg);
+            border: 2px solid var(--gold-bright);
+            border-radius: 12px;
             padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 0.8rem;
-            text-align: center;
+            box-shadow: 0 0 10px var(--gold-dim), inset 0 0 10px var(--gold-dim);
+            position: relative;
         }
+        
+        /* Corner bracket illusions for side panels */
+        .side-panel::before, .side-panel::after {
+            content: '';
+            position: absolute;
+            width: 30px; height: 10px;
+            background-color: var(--panel-bg);
+            z-index: 1;
+        }
+        .side-panel::before { top: -2px; left: 50%; transform: translateX(-50%); }
+        .side-panel::after { bottom: -2px; left: 50%; transform: translateX(-50%); }
 
         .side-panel h4 {
-            color: var(--gold-accent);
-            margin: 0 0 10px 0;
-            font-size: 1rem;
+            color: var(--gold-bright);
+            margin: 10px 0 5px 0;
+            font-size: 0.95rem;
             font-weight: bold;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .benefit-sub {
+            font-size: 0.7rem; 
+            color: var(--tagline-text); 
+            margin-bottom: 10px;
+            z-index: 2;
         }
 
         .benefit-list {
@@ -101,211 +95,226 @@
             margin: 0;
             text-align: left;
             width: 100%;
+            font-size: 0.85rem;
+            z-index: 2;
         }
 
-        .benefit-list li {
-            margin-bottom: 5px;
-            color: var(--tagline-color);
-        }
-
+        .benefit-list li { margin-bottom: 6px; line-height: 1.3; }
         .benefit-list li::before {
-            content: '•';
-            color: var(--gold-accent);
-            margin-right: 5px;
+            content: '- ';
+            color: var(--gold-bright);
+            font-weight: bold;
         }
 
-        .placeholder-box {
-            width: 100px;
-            height: 100px;
-            border: 1px dashed rgba(247, 179, 43, 0.3);
-            border-radius: 10px;
+        /* Graphic Placeholders */
+        .graphic-box {
+            width: 100%;
+            height: 120px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: rgba(247, 179, 43, 0.5);
-            font-size: 0.7rem;
-            text-align: center;
-            margin-bottom: 10px;
+            font-size: 3rem;
+            background: rgba(0,0,0,0.2);
             position: relative;
+            z-index: 2;
         }
+        .graphic-box.coffee::after { content: '☕'; animation: float 2s ease-in-out infinite alternate; }
+        .graphic-box.tea::after { content: '🍃'; }
         
-        .placeholder-box.coffee::before {
-            content: '☕';
-            font-size: 3rem;
-            animation: coffee-steam 1.5s ease-in-out infinite alternate;
-        }
-        
-        .placeholder-box.tea::before {
-            content: '🍃';
-            font-size: 3rem;
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-8px); }
         }
 
-        @keyframes coffee-steam {
-            from { transform: translateY(0); opacity: 0.8; }
-            to { transform: translateY(-5px); opacity: 0.5; }
-        }
-
-        .branding-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            text-align: center;
-        }
-
-        .brand-text {
+        /* Center Main Card */
+        .central-card {
+            background-color: var(--panel-bg);
+            border: 3px solid var(--gold-bright);
+            border-radius: 15px;
+            padding: 20px 25px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            gap: 15px;
+            box-shadow: 0 0 15px var(--gold-glow), inset 0 0 15px var(--gold-dim);
+            position: relative;
         }
 
-        .brand-name {
-            color: var(--gold-accent);
+        /* Branding Header */
+        .branding-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+        }
+
+        .branding-logo {
+            height: 40px;
+            /* If logo.png doesn't load, this background simulates the pill shape */
+            background-color: #ccc; 
+            border-radius: 20px;
+            min-width: 100px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .branding-text {
+            text-align: right;
+        }
+
+        .brand-title {
+            color: var(--gold-bright);
             font-size: 1.8rem;
-            font-weight: bold;
-            line-height: 1.2;
-        }
-
-        .tagline {
-            color: var(--tagline-color);
-            font-size: 0.9rem;
-            margin-top: 2px;
-        }
-
-        /* CHANGED: Removed overflow hidden so text never cuts off */
-        .quote-display {
-            color: var(--kannada-text-color);
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100px;
-            padding: 10px;
-        }
-
-        /* CHANGED: Removed webkit line clamps so mobile displays full text */
-        .quote-display p {
+            font-weight: 700;
+            letter-spacing: 1px;
             margin: 0;
-            font-family: 'Tiro Kannada', serif;
-            line-height: 1.5;
+            line-height: 1;
         }
 
-        .quote-display.quote-long { font-size: 1.2rem; }
-        .quote-display.quote-normal { font-size: 1.5rem; }
-        .quote-display.quote-short { font-size: 1.8rem; }
-        .quote-display.quote-very-short { font-size: 2rem; }
-
-        .icon-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            color: var(--frame-color);
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+        .brand-tagline {
+            color: var(--tagline-text);
+            font-size: 0.75rem;
+            margin-top: 5px;
         }
 
-        .actions-row {
+        /* Inner Quote Box with thin border */
+        .inner-quote-box {
+            border: 1px solid var(--gold-dim);
+            border-radius: 10px;
+            padding: 25px 20px;
+            position: relative;
+            flex-grow: 1;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
 
-        .cta-btn {
-            background-color: var(--frame-color);
-            color: var(--cta-text-color);
+        /* Small icons inside the quote box (bottom left) */
+        .inner-icons {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            color: var(--gold-dim);
+            font-size: 1rem;
+            display: flex;
+            gap: 5px;
+        }
+
+        .quote-text {
+            color: var(--kannada-text);
+            font-family: 'Tiro Kannada', serif;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            text-align: center;
+            margin: 0;
+            width: 100%;
+        }
+
+        /* Buttons Row */
+        .buttons-row {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--gold-bright);
+            color: #000;
+            border: none;
             border-radius: 25px;
-            padding: 10px 20px;
+            padding: 10px 25px;
             font-weight: bold;
-            font-family: 'Segoe UI', sans-serif;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
-            box-shadow: 0 0 10px rgba(247, 179, 43, 0.2);
-            transition: transform 0.2s, box-shadow 0.2s;
+            justify-content: center;
+            flex-grow: 1;
+            transition: 0.2s;
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 0 15px var(--gold-glow);
+            transform: scale(1.02);
         }
 
-        .cta-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(247, 179, 43, 0.3);
-        }
+        .btn-primary .main-text { font-size: 1rem; }
+        .btn-primary .sub-text { font-size: 0.65rem; font-weight: normal; opacity: 0.8; }
 
-        .business-desc {
-            font-size: 0.7rem;
-            opacity: 0.8;
-            font-weight: normal;
-        }
-
-        .share-btn {
-            background: none;
-            border: none;
-            color: var(--frame-color);
-            font-size: 1.8rem;
+        .btn-outline {
+            background-color: transparent;
+            color: var(--gold-bright);
+            border: 2px solid var(--gold-bright);
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: bold;
+            font-size: 1rem;
             cursor: pointer;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 0;
-            transition: color 0.2s;
+            gap: 8px;
+            transition: 0.2s;
         }
 
-        .share-btn:hover {
-            color: #ffffff;
+        .btn-outline:hover {
+            background-color: rgba(255, 204, 0, 0.1);
+            box-shadow: 0 0 10px var(--gold-dim);
         }
 
+        /* Water Reminder */
         .water-reminder {
-            grid-column: 1 / -1; 
+            grid-column: 1 / -1;
             text-align: center;
-            color: var(--tagline-color);
-            font-size: 0.8rem;
-            margin-top: 15px;
+            color: var(--tagline-text);
+            font-size: 0.85rem;
+            margin-top: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
+        .water-reminder span.highlight { color: var(--gold-bright); font-weight: bold; }
 
-        /* Mobile specific font size adjustments for the full text */
-        @media (max-width: 850px) {
-            body { padding: 10px; }
+        /* ========================================= */
+        /* MOBILE RESPONSIVENESS                     */
+        /* ========================================= */
+        @media (max-width: 900px) {
             .ntrix-banner {
-                grid-template-columns: 1fr; 
+                grid-template-columns: 1fr; /* Single column */
                 padding: 15px;
                 border-radius: 25px;
             }
-            .central-card { order: 1; }
-            #coffeePanel { order: 2; }
-            #teaPanel { order: 3; }
-            .water-reminder { order: 4; }
-
-            /* Ensure long quotes fit nicely on mobile screens */
-            .quote-display.quote-long { font-size: 1rem; }
-            .quote-display.quote-normal { font-size: 1.1rem; }
-            .quote-display.quote-short { font-size: 1.3rem; }
-            .quote-display.quote-very-short { font-size: 1.5rem; }
-
-            .brand-name { font-size: 1.5rem; }
-            .actions-row { flex-direction: column; gap: 10px; }
             
-            .share-btn {
-                background-color: rgba(247, 179, 43, 0.1);
-                border: 1px solid var(--frame-color);
-                border-radius: 25px;
-                padding: 5px 20px;
-                font-size: 1.2rem;
-                width: 100%;
+            /* Reorder so main card is on top */
+            .central-card { order: 1; padding: 15px; }
+            .side-panel:nth-of-type(1) { order: 2; }
+            .side-panel:nth-of-type(2) { order: 3; }
+            .water-reminder { order: 4; margin-top: 15px; }
+
+            .branding-header {
+                flex-direction: column;
+                text-align: center;
                 gap: 10px;
             }
-            .share-btn::after {
-                content: "SHARE QUOTE";
-                font-size: 0.9rem;
-                font-weight: bold;
-                position: relative;
-                bottom: 0;
-                color: var(--frame-color);
+            .branding-text { text-align: center; }
+            .brand-title { font-size: 1.5rem; }
+
+            .inner-quote-box { padding: 20px 10px 35px 10px; }
+            .quote-text { font-size: 1.1rem; }
+            
+            .buttons-row {
+                flex-direction: column;
             }
+            .btn-outline { justify-content: center; }
         }
     </style>
 </head>
@@ -313,53 +322,59 @@
 
     <div class="ntrix-banner">
         
-        <div class="side-panel" id="coffeePanel">
-            <div class="placeholder-box coffee"></div>
+        <!-- Left Panel: Coffee -->
+        <div class="side-panel">
+            <div class="graphic-box coffee"><span style="font-size: 10px; position:absolute; bottom:5px; color:rgba(255,255,255,0.3)">[GIF PLACEHOLDER]</span></div>
             <h4>COFFEE BENEFITS</h4>
-            <div style="font-size: 0.7rem; color: var(--tagline-color); margin-bottom: 5px;">(Changes daily)</div>
+            <div class="benefit-sub">(Changes daily)</div>
             <ul class="benefit-list" id="coffeeList"></ul>
         </div>
 
+        <!-- Central Main Card -->
         <div class="central-card">
-            <div class="branding-row">
-                <div class="brand-text">
-                    <img src="logo.png" alt="NTrix Logo" style="height: 45px; margin-bottom: 5px;">
-                    <div class="brand-name">NTRIX IT SERVICES</div>
-                    <div class="tagline">Securing Your Space. Powering Your Tech.</div>
+            
+            <div class="branding-header">
+                <!-- IMPORTANT: Make sure logo.png is uploaded to your GitHub repository -->
+                <img src="logo.png" alt="NTrix Logo" class="branding-logo" onerror="this.style.display='none'">
+                <div class="branding-text">
+                    <h1 class="brand-title">NTRIX IT SERVICES</h1>
+                    <div class="brand-tagline">Securing Your Space. Powering Your Tech.</div>
                 </div>
             </div>
 
-            <div class="quote-display" id="quoteDisplay">
-                <p id="kannadaQuote">Loading your daily inspiration...</p>
+            <div class="inner-quote-box">
+                <p class="quote-text" id="kannadaQuote">Loading your daily inspiration...</p>
+                <div class="inner-icons">
+                    <span>🔒</span>
+                    <span>💻</span>
+                </div>
             </div>
 
-            <div>
-                <div class="icon-group">
-                    <span>🔒</span> 
-                    <span>💻</span> 
-                </div>
-                <div class="actions-row">
-                    <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query%20from%20the%20NTrix%20mug." class="cta-btn">
-                        <span>GET A TECH QUOTE</span>
-                        <span class="business-desc">Request consultation for business queries</span>
-                    </a>
-                    <button class="share-btn" id="shareBtn" onclick="shareCurrentQuote()" title="Share this Quote">
-                        <span>📤</span>
-                    </button>
-                </div>
+            <div class="buttons-row">
+                <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query%20from%20the%20NTrix%20mug." class="btn-primary">
+                    <span class="main-text">GET A TECH QUOTE</span>
+                    <span class="sub-text">WhatsApp +91 9742248550</span>
+                    <span class="sub-text" style="font-size: 0.55rem; opacity: 0.6;">Request consultation for business queries</span>
+                </a>
+                
+                <button class="btn-outline" onclick="shareCurrentQuote()" title="Share this Quote">
+                    <span>📤</span> SHARE
+                </button>
             </div>
+            
         </div>
 
-        <div class="side-panel" id="teaPanel">
-            <div class="placeholder-box tea"></div>
+        <!-- Right Panel: Tea -->
+        <div class="side-panel">
+            <div class="graphic-box tea"><span style="font-size: 10px; position:absolute; bottom:5px; color:rgba(255,255,255,0.3)">[STATIC/GIF]</span></div>
             <h4>TEA BENEFITS</h4>
-            <div style="font-size: 0.7rem; color: var(--tagline-color); margin-bottom: 5px;">(Changes daily)</div>
+            <div class="benefit-sub">(Changes daily)</div>
             <ul class="benefit-list" id="teaList"></ul>
         </div>
 
+        <!-- Water Reminder -->
         <div class="water-reminder">
-            <span>💧</span>
-            <span>REMINDER: Drink more water!</span>
+            <span>💧</span> <span class="highlight">REMINDER:</span> Drink more water!
         </div>
 
     </div>
@@ -415,7 +430,7 @@
         ];
 
         const coffeeBenefits = [
-            ["Boosts Alertness.", "Improved Cognitive Function.", "Enhances Focus.", "May Increase Metabolism."],
+            ["Boosts Alertness.", "Improves Cognitive Function.", "Enhances Focus.", "May Increase Metabolism."],
             ["Increases Energy.", "Reduces Fatigue.", "Improves Physical Performance.", "Burns Fat."],
             ["Contains Antioxidants.", "Lowers Risk of Some Diseases.", "Boosts Brain Power.", "Great Social Drink."]
         ];
@@ -427,40 +442,25 @@
         ];
 
         function updateDailyContent() {
+            // Load Quote
             const quoteText = kannadaQuotes[Math.floor(Math.random() * kannadaQuotes.length)];
             const quoteElement = document.getElementById('kannadaQuote');
             quoteElement.innerText = quoteText;
 
-            const quoteDisplayDiv = document.getElementById('quoteDisplay');
-            quoteDisplayDiv.className = 'quote-display';
-            
-            const textLength = quoteText.length;
-            if (textLength > 300) {
-                quoteDisplayDiv.classList.add('quote-long');
-            } else if (textLength > 150) {
-                quoteDisplayDiv.classList.add('quote-normal');
-            } else if (textLength > 75) {
-                quoteDisplayDiv.classList.add('quote-short');
-            } else {
-                quoteDisplayDiv.classList.add('quote-very-short');
-            }
-
-            const selectedCoffeeBenefits = coffeeBenefits[Math.floor(Math.random() * coffeeBenefits.length)];
+            // Load Coffee
+            const selectedCoffee = coffeeBenefits[Math.floor(Math.random() * coffeeBenefits.length)];
             const coffeeList = document.getElementById('coffeeList');
             coffeeList.innerHTML = '';
-            selectedCoffeeBenefits.forEach(benefit => {
-                const li = document.createElement('li');
-                li.innerText = benefit;
-                coffeeList.appendChild(li);
+            selectedCoffee.forEach(b => {
+                const li = document.createElement('li'); li.innerText = b; coffeeList.appendChild(li);
             });
 
-            const selectedTeaBenefits = teaBenefits[Math.floor(Math.random() * teaBenefits.length)];
+            // Load Tea
+            const selectedTea = teaBenefits[Math.floor(Math.random() * teaBenefits.length)];
             const teaList = document.getElementById('teaList');
             teaList.innerHTML = '';
-            selectedTeaBenefits.forEach(benefit => {
-                const li = document.createElement('li');
-                li.innerText = benefit;
-                teaList.appendChild(li);
+            selectedTea.forEach(b => {
+                const li = document.createElement('li'); li.innerText = b; teaList.appendChild(li);
             });
         }
 
@@ -471,12 +471,7 @@
             const shareUrl = window.location.href;
 
             if (navigator.share) {
-                navigator.share({
-                    title: shareTitle,
-                    text: shareText,
-                    url: shareUrl,
-                })
-                .then(() => console.log('Successfully shared'))
+                navigator.share({ title: shareTitle, text: shareText, url: shareUrl })
                 .catch((error) => console.log('Error sharing', error));
             } else {
                 alert("Native sharing is not supported on this device. You can manually copy this quote:\n\n" + shareText);
@@ -485,6 +480,5 @@
 
         window.onload = updateDailyContent;
     </script>
-
 </body>
 </html>
