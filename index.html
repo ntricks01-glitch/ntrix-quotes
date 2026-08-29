@@ -9,10 +9,10 @@
         :root {
             --bg-color: #0c0f13;
             --frame-color: #f7b32b; 
-            --trace-color: #00ffff;
             --main-text-color: #ffffff;
             --tagline-color: #8b949e; 
-            --kannada-text-color: #f7b32b; 
+            /* CHANGED: Kannada text is now white */
+            --kannada-text-color: #ffffff; 
             --gold-accent: #f7b32b; 
             --cta-text-color: #0c0f13; 
         }
@@ -34,7 +34,6 @@
                 repeating-linear-gradient(90deg, rgba(12, 15, 19, 0) 0px, rgba(12, 15, 19, 0) 4px, rgba(0, 255, 255, 0.01) 4px, rgba(0, 255, 255, 0.01) 5px);
         }
 
-        /* CHANGED: Made width 100% and added max-width for responsiveness */
         .ntrix-banner {
             width: 100%;
             max-width: 1000px;
@@ -173,24 +172,22 @@
             margin-top: 2px;
         }
 
+        /* CHANGED: Removed overflow hidden so text never cuts off */
         .quote-display {
             color: var(--kannada-text-color);
             text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             min-height: 100px;
             padding: 10px;
         }
 
+        /* CHANGED: Removed webkit line clamps so mobile displays full text */
         .quote-display p {
             margin: 0;
             font-family: 'Tiro Kannada', serif;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 5;
+            line-height: 1.5;
         }
 
         .quote-display.quote-long { font-size: 1.2rem; }
@@ -270,41 +267,27 @@
             gap: 10px;
         }
 
-        /* ========================================= */
-        /* ADDED: MOBILE RESPONSIVENESS MEDIA QUERY  */
-        /* ========================================= */
+        /* Mobile specific font size adjustments for the full text */
         @media (max-width: 850px) {
-            body {
-                padding: 10px;
-            }
+            body { padding: 10px; }
             .ntrix-banner {
-                grid-template-columns: 1fr; /* Make it a single column */
+                grid-template-columns: 1fr; 
                 padding: 15px;
                 border-radius: 25px;
             }
-            
-            /* Reorder panels so the Main Quote is on top */
-            .central-card {
-                order: 1;
-            }
-            #coffeePanel {
-                order: 2;
-            }
-            #teaPanel {
-                order: 3;
-            }
-            .water-reminder {
-                order: 4;
-            }
+            .central-card { order: 1; }
+            #coffeePanel { order: 2; }
+            #teaPanel { order: 3; }
+            .water-reminder { order: 4; }
 
-            .brand-name {
-                font-size: 1.5rem;
-            }
-            
-            .actions-row {
-                flex-direction: column; /* Stack buttons on very small screens */
-                gap: 10px;
-            }
+            /* Ensure long quotes fit nicely on mobile screens */
+            .quote-display.quote-long { font-size: 1rem; }
+            .quote-display.quote-normal { font-size: 1.1rem; }
+            .quote-display.quote-short { font-size: 1.3rem; }
+            .quote-display.quote-very-short { font-size: 1.5rem; }
+
+            .brand-name { font-size: 1.5rem; }
+            .actions-row { flex-direction: column; gap: 10px; }
             
             .share-btn {
                 background-color: rgba(247, 179, 43, 0.1);
@@ -340,6 +323,7 @@
         <div class="central-card">
             <div class="branding-row">
                 <div class="brand-text">
+                    <img src="logo.png" alt="NTrix Logo" style="height: 45px; margin-bottom: 5px;">
                     <div class="brand-name">NTRIX IT SERVICES</div>
                     <div class="tagline">Securing Your Space. Powering Your Tech.</div>
                 </div>
