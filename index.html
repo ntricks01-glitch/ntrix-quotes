@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NTRIX IT SERVICES - Daily Kannada Motivation</title>
-    <!-- Imported Montserrat for Brand Name, Tiro Kannada for Quotes -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Tiro+Kannada&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -28,15 +27,12 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
-            
-            /* Modern Tech Grid Background */
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 30px 30px;
         }
 
-        /* Grid Layout System (Allows side-by-side mobile panels easily) */
         .ntrix-wrapper {
             width: 100%;
             max-width: 1200px;
@@ -45,13 +41,13 @@
             padding: 25px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.05);
-            
             display: grid;
             grid-template-areas: 
                 "coffee center tea"
                 "water water water";
             grid-template-columns: 240px 1fr 240px;
             gap: 20px;
+            box-sizing: border-box;
         }
 
         /* === SIDE PANELS (Coffee/Tea) === */
@@ -64,6 +60,7 @@
             flex-direction: column;
             align-items: flex-start;
             box-shadow: inset 0 0 15px var(--gold-dim);
+            box-sizing: border-box;
         }
         
         .side-panel.coffee { grid-area: coffee; }
@@ -87,13 +84,6 @@
             height: 60px;
             object-fit: contain;
             animation: float 3s ease-in-out infinite;
-        }
-
-        .graphic-label {
-            font-size: 0.55rem;
-            color: rgba(255,255,255,0.3);
-            margin-top: 10px;
-            letter-spacing: 1px;
         }
 
         @keyframes float {
@@ -141,6 +131,9 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 0 25px var(--gold-glow);
+            box-sizing: border-box;
+            max-width: 100%;
+            overflow: hidden;
         }
 
         /* Branding Header */
@@ -151,26 +144,24 @@
             margin-bottom: 20px;
         }
 
-        .logo-circle {
+        /* Fixed Logo Box for Rectangular NTrix Logo */
+        .logo-box {
             background-color: #ffffff;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            height: 50px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            padding: 5px 15px;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            padding: 5px;
         }
-        .logo-circle img {
-            width: 100%;
-            height: auto;
+        .logo-box img {
+            height: 100%;
+            width: auto;
             object-fit: contain;
         }
 
         .brand-text { text-align: right; }
-        
         .brand-name {
             font-family: 'Montserrat', sans-serif;
             color: var(--gold-main);
@@ -186,7 +177,7 @@
             margin-top: 5px;
         }
 
-        /* === BROKEN FRAME QUOTE BOX === */
+        /* Quote Box */
         .quote-container {
             flex-grow: 1;
             position: relative;
@@ -195,9 +186,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* The Tech Brackets (Top-Left & Bottom-Right) */
         .bracket-tl, .bracket-br {
             position: absolute;
             width: 60%;
@@ -236,7 +228,7 @@
             z-index: 2;
         }
 
-        /* Dynamic Font Sizes */
+        /* Font Sizes */
         .font-xs { font-size: 1.15rem; }
         .font-sm { font-size: 1.4rem; }
         .font-md { font-size: 1.7rem; }
@@ -248,47 +240,47 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 8px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .btn-main {
-            background-color: var(--gold-main);
-            color: #000000;
-            border: none;
-            border-radius: 30px;
-            padding: 12px 40px;
+        /* Button Box-Sizing prevents spilling over edges */
+        .btn-main, .btn-share {
+            box-sizing: border-box;
+            max-width: 100%;
+            text-align: center;
             font-family: 'Segoe UI', sans-serif;
             font-weight: 700;
-            font-size: 1.05rem;
-            text-decoration: none;
+            border-radius: 30px;
+            transition: 0.2s;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 0 15px var(--gold-dim);
-        }
-        .btn-main:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 20px var(--gold-glow);
         }
 
         .btn-share {
             background-color: transparent;
             color: var(--gold-main);
             border: 2px solid var(--gold-main);
-            border-radius: 30px;
             padding: 10px 30px;
-            font-family: 'Segoe UI', sans-serif;
-            font-weight: 700;
             font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
             gap: 8px;
-            transition: 0.2s;
         }
-        .btn-share:hover {
-            background-color: rgba(255, 204, 0, 0.1);
+        .btn-share:hover { background-color: rgba(255, 204, 0, 0.1); }
+
+        .btn-main {
+            background-color: var(--gold-main);
+            color: #000000;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.05rem;
+            text-decoration: none;
+            box-shadow: 0 0 15px var(--gold-dim);
+        }
+        .btn-main:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px var(--gold-glow);
         }
 
         .action-footer {
@@ -309,7 +301,7 @@
             margin-top: -5px;
         }
         .water-section img {
-            height: 20px;
+            height: 25px;
             width: auto;
             animation: float 2s ease-in-out infinite alternate;
         }
@@ -324,28 +316,32 @@
                     "center center"
                     "coffee tea"
                     "water water";
-                grid-template-columns: 1fr 1fr; /* Coffee & Tea Side by Side */
+                grid-template-columns: 1fr 1fr; 
                 gap: 15px;
             }
 
             .center-card { padding: 20px 15px; }
-            .header-row { flex-direction: column; gap: 12px; }
+            .header-row { flex-direction: column; gap: 15px; }
             .brand-text { text-align: center; }
-            .brand-name { font-size: 1.7rem; }
+            .brand-name { font-size: 1.6rem; }
             
-            .quote-container { padding: 30px 15px; }
+            .quote-container { padding: 30px 15px; margin: 10px 0 15px 0;}
             .bracket-tl, .bracket-br { width: 80%; height: 40%; }
             
-            .font-xs { font-size: 1rem; }
-            .font-sm { font-size: 1.25rem; }
-            .font-md { font-size: 1.5rem; }
-            .font-lg { font-size: 1.8rem; }
+            .font-xs { font-size: 0.95rem; }
+            .font-sm { font-size: 1.15rem; }
+            .font-md { font-size: 1.4rem; }
+            .font-lg { font-size: 1.7rem; }
 
-            .action-row { flex-direction: column; align-items: stretch; }
-            .btn-main { width: 100%; padding: 14px 20px; }
-            .btn-share { width: 100%; justify-content: center; padding: 12px 20px; }
+            /* BUTTONS: Share above Get Quote */
+            .action-row { 
+                flex-direction: column; 
+                align-items: center;
+                gap: 12px;
+            }
+            .btn-share { width: 100%; padding: 12px 20px; order: 1; }
+            .btn-main { width: 100%; padding: 14px 20px; order: 2; font-size: 1rem; }
             
-            /* Smaller text for side panels on mobile so they fit nicely */
             .side-panel { padding: 12px 10px; }
             .panel-title { font-size: 0.85rem; }
             .benefit-list { font-size: 0.75rem; }
@@ -358,12 +354,11 @@
 
     <div class="ntrix-wrapper">
         
-        <!-- === CENTER PANEL === -->
         <div class="center-card">
             
             <div class="header-row">
-                <div class="logo-circle">
-                    <img src="Ntrix Logo_3.jpg" alt="NTrix Logo" onerror="this.outerHTML='<span style=\'color:black; font-weight:bold; font-size: 14px;\'>NTrix</span>'">
+                <div class="logo-box">
+                    <img src="Ntrix%20Logo.jpg" alt="NTrix Logo" onerror="this.outerHTML='<span style=\'color:black; font-weight:bold; font-size: 16px;\'>NTrix</span>'">
                 </div>
                 <div class="brand-text">
                     <h1 class="brand-name">NTRIX IT SERVICES</h1>
@@ -371,7 +366,6 @@
                 </div>
             </div>
 
-            <!-- Broken Frame Quote Box -->
             <div class="quote-container">
                 <div class="bracket-tl"></div>
                 <div class="bracket-br"></div>
@@ -386,52 +380,44 @@
 
             <div>
                 <div class="action-row">
-                    <!-- Updated Button: Only reads "GET A TECH QUOTE" -->
-                    <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query%20from%20the%20NTrix%20mug." class="btn-main">
-                        GET A TECH QUOTE
-                    </a>
-                    
                     <button class="btn-share" onclick="shareCurrentQuote()" title="Share this Quote">
                         <span>📤</span> SHARE
                     </button>
+
+                    <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query%20from%20the%20NTrix%20mug." class="btn-main">
+                        GET A TECH QUOTE
+                    </a>
                 </div>
                 <div class="action-footer">Request consultation for business queries</div>
             </div>
 
         </div>
 
-        <!-- === LEFT PANEL (Coffee) === -->
         <div class="side-panel coffee">
             <div class="graphic-display">
-                <!-- Using a high-quality 3D animated emoji link so it works forever without uploads -->
                 <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png" alt="Coffee">
-                <span class="graphic-label">[ANIMATED GIF]</span>
             </div>
             <h4 class="panel-title">COFFEE BENEFITS</h4>
             <div class="panel-sub">(Changes daily):</div>
             <ul class="benefit-list" id="coffeeList"></ul>
         </div>
 
-        <!-- === RIGHT PANEL (Tea) === -->
         <div class="side-panel tea">
             <div class="graphic-display">
                 <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png" alt="Tea">
-                <span class="graphic-label">[ANIMATED GIF]</span>
             </div>
             <h4 class="panel-title">TEA BENEFITS</h4>
             <div class="panel-sub">(Changes daily):</div>
             <ul class="benefit-list" id="teaList"></ul>
         </div>
 
-        <!-- === WATER REMINDER === -->
         <div class="water-section">
-            <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Droplet.png" alt="Water">
+            <img src="https://img.icons8.com/color/48/water-bottle.png" alt="Water Bottle">
             <span><strong>REMINDER:</strong> Drink more water!</span>
         </div>
 
     </div>
 
-    <!-- SCRIPT LOGIC -->
     <script>
         const kannadaQuotes = [
             "ಗರುಡನಿಗೆ ಕಾಗೆ ಕಾಟ ಕೊಟ್ರೆ, ಗರುಡ ಯಾವತ್ತೂ ಕಾಗೆ ಜೊತೆ ಜಗಳ ಆಡ್ತಾ ಕೂರಲ್ಲ...  ಬದಲಾಗಿ ತನ್ನ ಹಾರಾಟದ ಎತ್ತರನ ಜಾಸ್ತಿ ಮಾಡುತ್ತೆ! ಎತ್ತರಕ್ಕೆ ಹೋದಾಗ ಉಸಿರುಗಟ್ಟಿ ಕಾಗೆ ತಾನಾಗೇ ಕೆಳಗೆ ಬೀಳುತ್ತೆ.  ನಿಮ್ಮ ಬಗ್ಗೆ ಮಾತಾಡೋರ ಜೊತೆ ವಾದ ಮಾಡ್ಬೇಡಿ, ನಿಮ್ಮ 'ಗೆಲುವಿನ ಎತ್ತರ'ನ ಜಾಸ್ತಿ ಮಾಡಿ! ಅವ್ರೇ ಸೈಡ್ ಆಗ್ತಾರೆ.",
