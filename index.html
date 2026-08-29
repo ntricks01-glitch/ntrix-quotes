@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTRIX IT SERVICES - Daily Motivation</title>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: #161b22;
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid #d4af37; /* Gold accent matching your brand */
+            max-width: 500px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+        h1 {
+            color: #d4af37;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            font-size: 0.9em;
+            color: #8b949e;
+            margin-bottom: 30px;
+        }
+        #quoteDisplay {
+            font-size: 1.3em;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            min-height: 80px;
+        }
+        .cta-button {
+            background-color: #25D366; /* WhatsApp Green */
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #1ebe5d;
+            box-shadow: 0 0 10px rgba(37, 211, 102, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>NTRIX IT SERVICES</h1>
+        <div class="subtitle">Securing Your Space. Powering Your Tech.</div>
+        
+        <div id="quoteDisplay">"Loading your daily motivation..."</div>
+        
+        <!-- Direct link to your WhatsApp -->
+        <a href="https://wa.me/919742248910?text=Hi%20Nagendra,%20I%20scanned%20the%20NTrix%20mug%20and%20need%20some%20assistance!" class="cta-button">
+            💬 Chat with us on WhatsApp
+        </a>
+    </div>
+
+    <script>
+        // Here is where you will eventually paste your 500 quotes!
+        const quotes = [
+            "Reboot your mind. Refresh your day.",
+            "Strong coffee. Stronger security.",
+            "Clear your cache and start fresh today.",
+            "Great ideas load faster with coffee.",
+            "Success is 99% uptime and 1% caffeine.",
+            "Protecting your peace and powering your tech.",
+            "Keep your data secure and your vision clear.",
+            "A moment of stillness before a day of progress."
+        ];
+
+        // This function picks a random quote from the list above
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            document.getElementById("quoteDisplay").innerText = quotes[randomIndex];
+        }
+
+        // Run the function when the page loads
+        window.onload = displayRandomQuote;
+    </script>
+
+</body>
+</html>
