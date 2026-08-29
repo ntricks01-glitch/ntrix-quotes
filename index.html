@@ -145,16 +145,13 @@
             margin-bottom: 20px;
         }
 
-        /* Fixed Logo Box for Rectangular NTrix Logo */
+        /* FIXED: Logo Box now has a transparent background */
         .logo-box {
-            background-color: #ffffff;
+            background-color: transparent; 
             height: 50px;
-            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5px 15px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
         .logo-box img {
             height: 100%;
@@ -364,7 +361,7 @@
             
             <div class="header-row">
                 <div class="logo-box">
-                    <img src="Ntrix%20Logo.jpg" alt="NTrix Logo" onerror="this.outerHTML='<span style=\'color:black; font-weight:bold; font-size: 16px;\'>NTrix</span>'" crossorigin="anonymous">
+                    <img src="Ntrix%20Logo.jpg" alt="NTrix Logo" onerror="this.outerHTML='<span style=\'color:white; font-weight:bold; font-size: 16px;\'>NTrix</span>'" crossorigin="anonymous">
                 </div>
                 <div class="brand-text">
                     <h1 class="brand-name">NTRIX IT SERVICES</h1>
@@ -379,7 +376,7 @@
                 <p class="quote-text" id="kannadaQuote">Loading your daily inspiration...</p>
                 
                 <div class="quote-icons">
-                    <span>🔒</span>
+                    <span>📹</span>
                     <span>💻</span>
                 </div>
             </div>
@@ -517,38 +514,36 @@
             const shareBtn = document.getElementById('shareBtn');
             const originalBtnText = shareBtn.innerHTML;
             
-            // Show loading state
             shareBtn.innerHTML = '<span>⏳</span> PREPARING...';
             
             const cardElement = document.getElementById('cardToShare');
             const actionsArea = document.getElementById('actionsArea');
             
-            // 1. Temporarily hide the buttons so they don't appear in the image
             actionsArea.style.display = 'none';
 
             try {
-                // 2. Generate Image using html2canvas
                 const canvas = await html2canvas(cardElement, {
-                    backgroundColor: '#151b23', // Matches your card background
-                    scale: 2, // High resolution for mobile
-                    useCORS: true // Required to load external logo/fonts
+                    backgroundColor: '#151b23',
+                    scale: 2,
+                    useCORS: true
                 });
 
-                // 3. Convert Canvas to Blob
                 canvas.toBlob(async (blob) => {
                     const file = new File([blob], 'NTrix-Quote.png', { type: 'image/png' });
                     
+                    const currentQuote = document.getElementById('kannadaQuote').innerText;
+                    // FIXED: Text now includes the live web URL in the WhatsApp message
+                    const shareText = `"${currentQuote}"\n\nSecuring Your Space. Powering Your Tech.\n\n🌐 View more quotes here: ${window.location.href}`;
+
                     const shareData = {
                         title: 'Daily Motivation from NTRIX',
-                        text: 'Securing Your Space. Powering Your Tech.',
+                        text: shareText,
                         files: [file]
                     };
 
-                    // 4. Try to share the file natively
                     if (navigator.canShare && navigator.canShare(shareData)) {
                         await navigator.share(shareData);
                     } else {
-                        // Fallback: If device doesn't support file sharing, download the image
                         alert("Direct image sharing to apps isn't fully supported on this browser, so we are downloading the image for you to share!");
                         const link = document.createElement('a');
                         link.download = 'NTrix-Quote.png';
@@ -561,7 +556,6 @@
                 console.error("Error creating image:", error);
                 alert("Something went wrong while creating the image. Please try again.");
             } finally {
-                // 5. Restore the buttons
                 actionsArea.style.display = 'flex';
                 shareBtn.innerHTML = originalBtnText;
             }
