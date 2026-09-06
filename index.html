@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f1319">
     <title>NTRIX Energy - Powered by NTRIX IT SERVICES</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Tiro+Kannada&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -16,252 +17,172 @@
             --text-white: #ffffff;
             --text-grey: #8b949e;
             --heart-red: #ff4d4d;
+            --energy-green: #00ff55;
         }
 
-        /* === REELS SCROLLING SETUP === */
         html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: hidden; 
-            background-color: var(--bg-page);
-        }
-
-        body {
-            color: var(--text-white);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            box-sizing: border-box;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            height: 100%; margin: 0; padding: 0; overflow: hidden; background-color: var(--bg-page);
+            color: var(--text-white); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 30px 30px;
         }
 
-        .reels-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            height: 100dvh; 
-            width: 100vw;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory; 
-            scroll-behavior: smooth;
+        /* === APP HEADER (STREAK & PWA) === */
+        .app-header {
+            position: fixed; top: 0; left: 0; width: 100%; background: rgba(15, 19, 25, 0.9);
+            padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; box-sizing: border-box; border-bottom: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(5px);
+        }
+        .streak-box { font-weight: bold; color: var(--gold-main); font-size: 1.1rem; }
+        .install-btn {
+            background-color: var(--energy-green); color: black; border: none;
+            padding: 6px 12px; border-radius: 20px; font-weight: bold; cursor: pointer;
+            display: none; /* Hidden until PWA event fires */
         }
 
+        .reels-container {
+            position: absolute; top: 50px; /* Offset for header */ left: 0;
+            height: calc(100dvh - 50px); width: 100vw; overflow-y: scroll;
+            scroll-snap-type: y mandatory; scroll-behavior: smooth;
+        }
         .reels-container::-webkit-scrollbar { display: none; }
         .reels-container { -ms-overflow-style: none; scrollbar-width: none; }
 
         .reel-section {
-            height: 100vh;
-            height: 100dvh;
-            width: 100vw;
-            scroll-snap-align: start; 
-            scroll-snap-stop: always; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
+            height: calc(100dvh - 50px); width: 100vw; scroll-snap-align: start; scroll-snap-stop: always; 
+            display: flex; justify-content: center; align-items: center; padding: 15px; box-sizing: border-box;
         }
 
-        /* === SCROLL POPUP ANIMATION === */
+        /* === SCROLL POPUP === */
         .scroll-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.85);
-            border: 2px solid var(--gold-main);
-            color: white;
-            padding: 20px 40px;
-            border-radius: 50px;
-            z-index: 1000;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            pointer-events: none; 
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            box-shadow: 0 0 20px var(--gold-glow);
-            animation: bounce 2s infinite;
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.85); border: 2px solid var(--gold-main); color: white;
+            padding: 20px 40px; border-radius: 50px; z-index: 1000; text-align: center;
+            font-weight: bold; pointer-events: none; transition: opacity 0.5s ease;
+            box-shadow: 0 0 20px var(--gold-glow); animation: bounce 2s infinite;
         }
-        
-        .scroll-popup span { display: block; font-size: 2rem; margin-bottom: 5px; }
+        .scroll-popup span { display: block; font-size: 2rem; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translate(-50%, -50%) translateY(0); } 40% { transform: translate(-50%, -50%) translateY(-15px); } }
+        .scroll-popup.hidden { opacity: 0; pointer-events: none; }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, -50%) translateY(0); }
-            40% { transform: translate(-50%, -50%) translateY(-15px); }
-            60% { transform: translate(-50%, -50%) translateY(-7px); }
-        }
-
-        .scroll-popup.hidden { opacity: 0; transform: translate(-50%, -60%); pointer-events: none; }
-
-        /* === EXISTING NTRIX STYLES === */
+        /* === NTRIX STYLES === */
         .ntrix-wrapper {
-            width: 100%;
-            max-width: 1200px;
-            background-color: #12161c;
-            border-radius: 25px;
-            padding: 25px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
-            display: grid;
+            width: 100%; max-width: 1200px; background-color: #12161c; border-radius: 25px;
+            padding: 20px; border: 1px solid rgba(255,255,255,0.05); display: grid;
             grid-template-areas: "coffee center tea" "water water water";
-            grid-template-columns: 240px 1fr 240px;
-            gap: 20px;
-            box-sizing: border-box;
-            height: 100%;
-            max-height: 900px;
+            grid-template-columns: 240px 1fr 240px; gap: 15px; box-sizing: border-box; height: 100%; max-height: 850px;
         }
 
         .side-panel {
-            background-color: var(--bg-card);
-            border: 2px solid var(--gold-main);
-            border-radius: 12px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            box-shadow: inset 0 0 15px var(--gold-dim);
-            box-sizing: border-box;
+            background-color: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            padding: 15px; display: flex; flex-direction: column; align-items: flex-start; box-sizing: border-box;
         }
-        
-        .side-panel.coffee { grid-area: coffee; }
-        .side-panel.tea { grid-area: tea; }
+        .side-panel.coffee { grid-area: coffee; } .side-panel.tea { grid-area: tea; }
 
-        .graphic-display {
-            width: 100%; height: 90px; background-color: #1a2029; border-radius: 8px; margin-bottom: 15px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.05);
-        }
+        .graphic-display { width: 100%; height: 70px; background-color: rgba(0,0,0,0.2); border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; }
+        .graphic-display img { width: 40px; height: 40px; animation: float 3s infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-        .graphic-display img { width: 50px; height: 50px; object-fit: contain; animation: float 3s ease-in-out infinite; }
-
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-
-        .panel-title { color: var(--gold-main); margin: 0 0 2px 0; font-size: 1rem; font-weight: 700; }
-        .panel-sub { font-size: 0.75rem; color: var(--text-grey); margin-bottom: 8px; }
-
-        .benefit-list { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; line-height: 1.4; color: #d1d5da; }
+        .panel-title { color: var(--gold-main); margin: 0 0 5px 0; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; }
+        .benefit-list { list-style: none; padding: 0; margin: 0; font-size: 0.75rem; line-height: 1.4; color: #d1d5da; }
         .benefit-list li { margin-bottom: 5px; display: flex; }
-        .benefit-list li::before { content: '- '; color: var(--text-grey); margin-right: 6px; }
+        .benefit-list li::before { content: '✔️ '; color: var(--energy-green); margin-right: 5px; font-size: 0.7rem; }
 
         .center-card {
-            grid-area: center; background-color: var(--bg-card); border: 4px solid var(--gold-main); border-radius: 18px;
-            padding: 20px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 0 25px var(--gold-glow);
-            box-sizing: border-box; max-width: 100%; overflow: hidden; height: 100%;
+            grid-area: center; border: 3px solid var(--gold-main); border-radius: 18px;
+            padding: 20px; display: flex; flex-direction: column; justify-content: space-between; 
+            box-shadow: 0 0 20px var(--gold-glow); box-sizing: border-box; transition: background 0.5s ease;
         }
 
-        .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .logo-box { background-color: transparent; height: 40px; display: flex; align-items: center; justify-content: center; }
-        .logo-box img { height: 100%; width: auto; object-fit: contain; }
-
+        .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .logo-box { height: 40px; } .logo-box img { height: 100%; }
+        
         .brand-text { text-align: right; }
-        .brand-name { font-family: 'Montserrat', sans-serif; color: var(--gold-main); font-size: 1.8rem; font-weight: 800; margin: 0; line-height: 1; letter-spacing: 0.5px; }
-        .brand-tagline { color: var(--text-grey); font-size: 0.75rem; margin-top: 3px; font-weight: 600; }
+        .brand-name { font-family: 'Montserrat', sans-serif; font-size: 1rem; margin: 0; color: #fff; }
+        .brand-name span { color: var(--energy-green); }
+        .brand-tagline { color: var(--gold-main); font-size: 1.2rem; margin-top: 2px; font-weight: 800; }
 
         .quote-container {
-            flex-grow: 1; position: relative; padding: 25px 20px; margin: 10px 0;
+            flex-grow: 1; position: relative; padding: 25px 20px; margin: 5px 0;
             display: flex; justify-content: center; align-items: center; width: 100%; box-sizing: border-box;
         }
-
-        .bracket-tl, .bracket-br { position: absolute; width: 50%; height: 40%; border: 2px solid var(--gold-main); }
+        .bracket-tl, .bracket-br { position: absolute; width: 40%; height: 30%; border: 2px solid var(--gold-main); opacity: 0.5; }
         .bracket-tl { top: 0; left: 0; border-right: none; border-bottom: none; border-top-left-radius: 12px; }
         .bracket-br { bottom: 0; right: 0; border-left: none; border-top: none; border-bottom-right-radius: 12px; }
 
-        .quote-text {
-            color: var(--text-white); font-family: 'Tiro Kannada', serif; text-align: center;
-            margin: 0; line-height: 1.5; width: 100%; z-index: 2;
-        }
+        .quote-text { color: var(--text-white); font-family: 'Tiro Kannada', serif; text-align: center; margin: 0; line-height: 1.5; z-index: 2; }
+        .font-xs { font-size: 0.95rem; } .font-sm { font-size: 1.15rem; } .font-md { font-size: 1.4rem; } .font-lg { font-size: 1.7rem; }
 
-        .quote-icons { position: absolute; bottom: 5px; left: 15px; display: flex; gap: 8px; font-size: 1rem; opacity: 0.8; z-index: 2; }
-
-        .font-xs { font-size: 1rem; } .font-sm { font-size: 1.25rem; } .font-md { font-size: 1.5rem; } .font-lg { font-size: 1.9rem; }
-
-        /* === BUTTONS === */
-        .actions-area { display: flex; flex-direction: column; width: 100%; gap: 8px; }
-        .action-group-top { display: flex; justify-content: center; gap: 10px; width: 100%; }
-
-        .btn-main, .btn-share, .btn-like {
-            box-sizing: border-box; text-align: center; font-family: 'Segoe UI', sans-serif;
-            font-weight: 700; border-radius: 30px; transition: 0.2s; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; user-select: none;
-        }
-
-        .btn-like {
-            background-color: transparent; color: var(--gold-main); border: 2px solid var(--gold-main);
-            padding: 8px 15px; font-size: 0.95rem; gap: 6px; flex: 1;
-        }
-        .btn-like:hover { background-color: rgba(255, 204, 0, 0.1); }
+        /* === 5-BUTTON GRID === */
+        .actions-area { display: flex; flex-direction: column; width: 100%; gap: 10px; }
+        .icon-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; background: rgba(0,0,0,0.3); border-radius: 15px; padding: 10px 5px; }
         
-        .btn-like.liked { 
-            color: var(--heart-red); 
-            border-color: var(--heart-red); 
-            background-color: rgba(255, 77, 77, 0.15); 
+        .btn-icon {
+            background: none; border: none; color: var(--text-white); display: flex; flex-direction: column; align-items: center;
+            font-size: 1.2rem; cursor: pointer; width: 20%; position: relative;
         }
+        .btn-icon span.label { font-size: 0.65rem; color: var(--text-grey); margin-top: 4px; font-weight: bold; }
+        .btn-icon:hover { color: var(--gold-main); }
+        
+        .btn-icon.liked { color: var(--heart-red); }
+        .btn-icon.saved { color: var(--gold-main); }
 
-        .btn-share {
-            background-color: transparent; color: var(--gold-main); border: 2px solid var(--gold-main);
-            padding: 8px 15px; font-size: 0.95rem; gap: 6px; flex: 1;
+        /* HEART BURST ANIMATION */
+        .floating-heart {
+            position: absolute; bottom: 20px; font-size: 1.5rem; pointer-events: none;
+            animation: floatUp 1s ease-out forwards; z-index: 10;
         }
-        .btn-share:hover { background-color: rgba(255, 204, 0, 0.1); }
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(-60px) scale(1.5) rotate(15deg); }
+        }
 
         .btn-main {
-            background-color: var(--gold-main); color: #000000; border: none; padding: 12px 20px;
-            font-size: 1rem; text-decoration: none; box-shadow: 0 0 15px var(--gold-dim); width: 100%;
+            background-color: var(--gold-main); color: #000; border: none; padding: 14px 20px;
+            font-size: 1rem; font-weight: 800; text-decoration: none; border-radius: 30px; text-align: center;
+            box-shadow: 0 0 15px var(--gold-dim); width: 100%; display: block;
         }
-        .btn-main:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--gold-glow); }
 
-        .action-footer { text-align: center; font-size: 0.6rem; color: var(--text-grey); margin-top: 3px; }
+        .water-section { grid-area: water; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-grey); }
+        .water-section img { height: 20px; animation: float 2s infinite alternate; }
+        .water-section strong { color: var(--energy-green); font-weight: 700; }
 
-        .water-section { grid-area: water; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-grey); margin-top: -10px; }
-        .water-section img { height: 20px; width: auto; animation: float 2s ease-in-out infinite alternate; }
-        .water-section strong { color: var(--gold-main); font-weight: 700; }
-
-        /* === ALL-IN-ONE-PAGE MOBILE COMPRESSION === */
+        /* MOBILE COMPRESSION */
         @media (max-width: 950px) {
-            .reel-section { padding: 10px; }
             .ntrix-wrapper {
-                padding: 10px; border-radius: 15px;
-                grid-template-areas: "center center" "coffee tea" "water water";
-                grid-template-columns: 1fr 1fr; gap: 8px;
-                height: 100%; max-height: 100%;
+                padding: 10px; border-radius: 15px; grid-template-areas: "center center" "coffee tea" "water water";
+                grid-template-columns: 1fr 1fr; gap: 8px; height: 100%; max-height: 100%;
             }
-            .center-card { padding: 12px; border-width: 2px; border-radius: 12px; }
-            .header-row { flex-direction: column; gap: 5px; margin-bottom: 5px; }
-            .brand-name { font-size: 1.3rem; }
-            .logo-box { height: 35px; }
-            
-            .quote-container { padding: 15px 10px; margin: 5px 0; }
-            .bracket-tl, .bracket-br { width: 70%; height: 35%; border-width: 1px; }
-            
-            .font-xs { font-size: 0.85rem; } .font-sm { font-size: 0.95rem; } .font-md { font-size: 1.1rem; } .font-lg { font-size: 1.35rem; }
-            
-            .side-panel { padding: 10px; border-width: 1px; }
-            .graphic-display { height: 45px; margin-bottom: 8px; }
-            .graphic-display img { width: 30px; height: 30px; }
-            .panel-title { font-size: 0.7rem; margin-bottom: 2px; }
-            .panel-sub { font-size: 0.6rem; margin-bottom: 5px; }
-            .benefit-list { font-size: 0.65rem; line-height: 1.3; }
-            .benefit-list li { margin-bottom: 3px; }
-            
-            .btn-like, .btn-share { padding: 8px 10px; font-size: 0.85rem; }
-            .btn-main { padding: 10px 15px; font-size: 0.9rem; }
-            
-            .water-section { font-size: 0.75rem; margin-top: 0; }
+            .center-card { padding: 12px; border-width: 2px; }
+            .side-panel { padding: 10px; }
+            .icon-bar { padding: 5px; }
+            .btn-icon { font-size: 1.1rem; }
+            .btn-icon span.label { font-size: 0.6rem; }
+            .btn-main { padding: 12px 15px; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
+    <div class="app-header">
+        <div class="streak-box">🔥 <span id="streakCount">0</span> Daily Streak</div>
+        <button id="installAppBtn" class="install-btn">INSTALL APP</button>
+    </div>
+
     <div id="scrollPopup" class="scroll-popup">
-        <span>👇</span>
-        Scroll down for more
+        <span>👇</span> Scroll down
     </div>
 
     <div id="reelsContainer" class="reels-container">
         </div>
 
     <script>
+        // 1. DYNAMIC BACKGROUND COLORS
+        const bgColors = ['#151b23', '#0d1a14', '#1a0d0d', '#0d131a', '#18150a']; 
+
+        // QUOTES
         const kannadaQuotes = [
             "ಗರುಡನಿಗೆ ಕಾಗೆ ಕಾಟ ಕೊಟ್ರೆ, ಗರುಡ ಯಾವತ್ತೂ ಕಾಗೆ ಜೊತೆ ಜಗಳ ಆಡ್ತಾ ಕೂರಲ್ಲ...  ಬದಲಾಗಿ ತನ್ನ ಹಾರಾಟದ ಎತ್ತರನ ಜಾಸ್ತಿ ಮಾಡುತ್ತೆ! ಎತ್ತರಕ್ಕೆ ಹೋದಾಗ ಉಸಿರುಗಟ್ಟಿ ಕಾಗೆ ತಾನಾಗೇ ಕೆಳಗೆ ಬೀಳುತ್ತೆ.  ನಿಮ್ಮ ಬಗ್ಗೆ ಮಾತಾಡೋರ ಜೊತೆ ವಾದ ಮಾಡ್ಬೇಡಿ, ನಿಮ್ಮ 'ಗೆಲುವಿನ ಎತ್ತರ'ನ ಜಾಸ್ತಿ ಮಾಡಿ! ಅವ್ರೇ ಸೈಡ್ ಆಗ್ತಾರೆ.",
             "ಜೋರಾಗಿ ಗಾಳಿ ಬೀಸಿದಾಗ ಸಣ್ಣ 'ದೀಪ' ಮಾತ್ರ ಆರಿಹೋಗುತ್ತೆ... ಆದ್ರೆ ಅದೇ ಗಾಳಿಗೆ, 'ಕಾಡ್ಗಿಚ್ಚು' ಇನ್ನಷ್ಟು ಭೀಕರವಾಗಿ ಹಬ್ಬುತ್ತೆ! ನಿಮ್ಮನ್ನ ಕೆಳಗೆ ಎಳೆಯೋ ಜನರಿಗೆ ದೀಪ ಆಗಬೇಡಿ, ಕಾಡ್ಗಿಚ್ಚಾಗಿ.",
@@ -311,98 +232,101 @@
             "ಜನ ನಿಮ್ಮನ್ನು ಒಳ್ಳೆಯವರು ಕೆಟ್ಟವರು ಎಂದು ನಿರ್ಧರಿಸುವುದು ನಿಮ್ಮಲ್ಲಿನ ಒಳ್ಳೆಯತನದಿಂದಲ್ಲ, ನಿಮ್ಮಂದ ಅವರಿಗೆಷ್ಟು ಉಪಯೋಗವಿದೆ ಎನ್ನುವುದರ ಮೇಲೆ. ಸಾಧ್ಯವಾದಷ್ಟು ಎಲ್ಲರಿಗೂ ಉಪಯೋಗಿ ಆಗಿರೋಣ.!"
         ];
 
-        const coffeeBenefits = [
-            ["ಆಂಟಿಆಕ್ಸಿಡೆಂಟ್‌ಗಳನ್ನು ಹೊಂದಿದೆ.", "ಕೆಲವು ರೋಗಗಳ ಅಪಾಯವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.", "ಮೆದುಳಿನ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ.", "ಉತ್ತಮ ಸಾಮಾಜಿಕ ಪಾನೀಯ."],
-            ["ಎಚ್ಚರಿಕೆಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ.", "ಅರಿವಿನ ಕಾರ್ಯವನ್ನು ಸುಧಾರಿಸುತ್ತದೆ.", "ಗಮನವನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ.", "ಚಯಾಪಚಯವನ್ನು ಹೆಚ್ಚಿಸಬಹುದು."],
-            ["ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ.", "ಆಯಾಸವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.", "ದೈಹಿಕ ಕಾರ್ಯಕ್ಷಮತೆಯನ್ನು ಸುಧಾರಿಸುತ್ತದೆ.", "ಕೊಬ್ಬನ್ನು ಕರಗಿಸುತ್ತದೆ."]
+        // 2. TECH AND CCTV TIPS REPLACING COFFEE/TEA
+        const techTips = [
+            ["ಪಾಸ್‌ವರ್ಡ್‌ಗಳನ್ನು ನಿಯಮಿತವಾಗಿ ಬದಲಾಯಿಸಿ (Update Passwords regularly).", "2-ಹಂತದ ಪರಿಶೀಲನೆ ಬಳಸಿ (Use 2FA).", "ಅಪರಿಚಿತ ಲಿಂಕ್‌ಗಳನ್ನು ಕ್ಲಿಕ್ ಮಾಡಬೇಡಿ.", "ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಬ್ಯಾಕಪ್ ಮಾಡಿ."],
+            ["ಸಾರ್ವಜನಿಕ Wi-Fi ಬಳಸುವಾಗ ಎಚ್ಚರ (Avoid Public Wi-Fi for banking).", "ಸಾಫ್ಟ್‌ವೇರ್ ಅನ್ನು ಅಪ್‌ಡೇಟ್ ಮಾಡಿ.", "ಬಲವಾದ ಪಾಸ್‌ವರ್ಡ್ ಬಳಸಿ.", "ಆಂಟಿವೈರಸ್ ಬಳಸಿ (Use Antivirus)."]
         ];
 
-        const teaBenefits = [
-            ["ರಕ್ತದೊತ್ತಡವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.", "ಒತ್ತಡವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.", "ಜೀರ್ಣಕ್ರಿಯೆಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ.", "ಹೃದಯದ ಆರೋಗ್ಯವನ್ನು ಸುಧಾರಿಸುತ್ತದೆ."],
-            ["ಮನಸ್ಸನ್ನು ಶಾಂತಗೊಳಿಸುತ್ತದೆ.", "ಆಂಟಿಆಕ್ಸಿಡೆಂಟ್‌ಗಳಿಂದ ಸಮೃದ್ಧವಾಗಿದೆ.", "ದೇಹವನ್ನು ಹೈಡ್ರೇಟ್ ಮಾಡುತ್ತದೆ.", "ನರಗಳನ್ನು ಶಾಂತಗೊಳಿಸಬಹುದು."],
-            ["ಉರಿಯೂತ ನಿವಾರಕ ಗುಣಲಕ್ಷಣಗಳು.", "ಕೀಲುಗಳನ್ನು ರಕ್ಷಿಸುತ್ತದೆ.", "ಚಯಾಪಚಯವನ್ನು ಬೆಂಬಲಿಸುತ್ತದೆ.", "ರೋಗನಿರೋಧಕ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ."]
+        const cctvTips = [
+            ["ರಾತ್ರಿ ದೃಷ್ಟಿಗಾಗಿ IR ಕ್ಯಾಮೆರಾ ಬಳಸಿ (Use IR Cameras for Night Vision).", "ಕ್ಯಾಮೆರಾ ಲೆನ್ಸ್‌ಗಳನ್ನು ಸ್ವಚ್ಛವಾಗಿಡಿ.", "ಡಿವಿಆರ್ (DVR) ಅನ್ನು ಸುರಕ್ಷಿತ ಸ್ಥಳದಲ್ಲಿ ಇಡಿ.", "ಮೊಬೈಲ್‌ನಲ್ಲಿ ಲೈವ್ ವೀಕ್ಷಣೆ ಪರಿಶೀಲಿಸಿ."],
+            ["ಕ್ಯಾಮೆರಾಗಳನ್ನು ಎತ್ತರದಲ್ಲಿ ಅಳವಡಿಸಿ.", "ಕೇಬಲ್‌ಗಳನ್ನು ಮರೆಮಾಡಿ (Conceal cables).", "ರೆಕಾರ್ಡಿಂಗ್ ಬ್ಯಾಕಪ್ ನಿಯಮಿತವಾಗಿ ಚೆಕ್ ಮಾಡಿ.", "ವಿದ್ಯುತ್ ಬ್ಯಾಕಪ್ (UPS) ಬಳಸಿ."]
         ];
 
         let shuffledQuotes = [...kannadaQuotes].sort(() => 0.5 - Math.random());
-        let currentQuoteIndex = 0;
-        let reelCounter = 0; 
+        let currentQuoteIndex = 0; let reelCounter = 0; 
         
         const likedState = new Set();
+        let currentStreak = parseInt(localStorage.getItem('ntrixStreak') || '0');
+        document.getElementById('streakCount').innerText = currentStreak;
 
         function generateReelHTML(quoteText) {
             reelCounter++;
-            const selCoffee = coffeeBenefits[Math.floor(Math.random() * coffeeBenefits.length)];
-            const selTea = teaBenefits[Math.floor(Math.random() * teaBenefits.length)];
+            const selTech = techTips[Math.floor(Math.random() * techTips.length)];
+            const selCctv = cctvTips[Math.floor(Math.random() * cctvTips.length)];
             
-            let fontClass = 'font-lg';
-            const len = quoteText.length;
-            if (len > 300) fontClass = 'font-xs';
-            else if (len > 150) fontClass = 'font-sm';
-            else if (len > 75) fontClass = 'font-md';
+            let fontClass = 'font-lg'; const len = quoteText.length;
+            if (len > 300) fontClass = 'font-xs'; else if (len > 150) fontClass = 'font-sm'; else if (len > 75) fontClass = 'font-md';
 
-            let coffeeListHTML = selCoffee.map(b => `<li>${b}</li>`).join('');
-            let teaListHTML = selTea.map(b => `<li>${b}</li>`).join('');
+            let techHTML = selTech.map(b => `<li>${b}</li>`).join('');
+            let cctvHTML = selCctv.map(b => `<li>${b}</li>`).join('');
 
             const randomLikes = Math.floor(Math.random() * 450) + 50;
+            const randomComments = Math.floor(Math.random() * 50) + 5;
+            const bgColor = bgColors[reelCounter % bgColors.length]; // Dynamic Background
 
             return `
                 <div class="ntrix-wrapper">
-                    <div class="center-card" id="cardToShare-${reelCounter}">
+                    <div class="center-card" id="cardToShare-${reelCounter}" style="background-color: ${bgColor};">
                         <div class="header-row">
                             <div class="logo-box">
                                 <img src="Ntrix%20Logo.jpg" alt="NTRIX" style="color: white; font-weight: bold; font-size: 1.2rem;" crossorigin="anonymous">
                             </div>
                             <div class="brand-text">
-                                <h1 class="brand-name">NTRIX Energy</h1>
-                                <div class="brand-tagline">Powered by NTRIX IT SERVICES</div>
+                                <h2 class="brand-name">NTRIX <span>Energy</span></h2>
+                                <div class="brand-tagline">POWERED BY NTRIX IT SERVICES</div>
                             </div>
                         </div>
 
                         <div class="quote-container">
-                            <div class="bracket-tl"></div>
-                            <div class="bracket-br"></div>
+                            <div class="bracket-tl"></div><div class="bracket-br"></div>
                             <p class="quote-text ${fontClass}" id="quoteText-${reelCounter}">${quoteText}</p>
-                            <div class="quote-icons"><span>📹</span><span>💻</span></div>
                         </div>
 
                         <div class="actions-area" id="actionsArea-${reelCounter}">
-                            <div class="action-group-top">
-                                <button class="btn-like" id="likeBtn-${reelCounter}" onclick="toggleLike(${reelCounter}, ${randomLikes})" title="Like this Quote">
-                                    <span class="icon" id="likeIcon-${reelCounter}">♡</span>
-                                    <span id="likeCount-${reelCounter}">${randomLikes}</span>
+                            <div class="icon-bar">
+                                <button class="btn-icon" id="likeBtn-${reelCounter}" onclick="toggleLike(this, ${reelCounter}, ${randomLikes})">
+                                    <span id="likeIcon-${reelCounter}">♡</span>
+                                    <span class="label" id="likeCount-${reelCounter}">${randomLikes}</span>
                                 </button>
-                                <button class="btn-share" onclick="shareCurrentQuote(this, ${reelCounter})" title="Share this Quote">
-                                    <span>📤</span> SHARE
+                                <button class="btn-icon" onclick="openComment(${reelCounter})">
+                                    <span>💬</span><span class="label">${randomComments}</span>
+                                </button>
+                                <button class="btn-icon" id="saveBtn-${reelCounter}" onclick="toggleSave(this, ${reelCounter})">
+                                    <span id="saveIcon-${reelCounter}">🔖</span><span class="label">Save</span>
+                                </button>
+                                <button class="btn-icon" onclick="speakQuote('${quoteText}')">
+                                    <span>🔊</span><span class="label">Listen</span>
+                                </button>
+                                <button class="btn-icon" onclick="shareCurrentQuote(this, ${reelCounter})">
+                                    <span>📤</span><span class="label">Share</span>
                                 </button>
                             </div>
-                            <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query%20from%20the%20NTrix%20mug." class="btn-main" target="_blank">
+                            <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20an%20IT/CCTV%20query." class="btn-main" target="_blank">
                                 GET A TECH QUOTE
                             </a>
-                            <div class="action-footer">Request consultation for business queries</div>
                         </div>
                     </div>
 
                     <div class="side-panel coffee">
                         <div class="graphic-display">
-                            <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png" alt="Coffee">
+                            <img src="https://img.icons8.com/color/48/cyber-security.png" alt="Tech Tip">
                         </div>
-                        <h4 class="panel-title">ಕಾಫಿಯ ಪ್ರಯೋಜನಗಳು</h4>
-                        <div class="panel-sub">(ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ):</div>
-                        <ul class="benefit-list">${coffeeListHTML}</ul>
+                        <h4 class="panel-title">IT Security Tips</h4>
+                        <ul class="benefit-list">${techHTML}</ul>
                     </div>
 
                     <div class="side-panel tea">
                         <div class="graphic-display">
-                            <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png" alt="Tea">
+                            <img src="https://img.icons8.com/color/48/dome-camera.png" alt="CCTV Tip">
                         </div>
-                        <h4 class="panel-title">ಚಹಾದ ಪ್ರಯೋಜನಗಳು</h4>
-                        <div class="panel-sub">(ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ):</div>
-                        <ul class="benefit-list">${teaListHTML}</ul>
+                        <h4 class="panel-title">CCTV Safety Tips</h4>
+                        <ul class="benefit-list">${cctvHTML}</ul>
                     </div>
 
                     <div class="water-section">
                         <img src="https://img.icons8.com/color/48/water-bottle.png" alt="Water Bottle">
-                        <span><strong>REMINDER:</strong> Drink more water!</span>
+                        <span><strong>REMINDER:</strong> Drink more water & secure your data!</span>
                     </div>
                 </div>
             `;
@@ -411,16 +335,10 @@
         function loadMoreReels(count = 3) {
             const container = document.getElementById('reelsContainer');
             if (!container) return;
-            
             for(let i=0; i<count; i++) {
-                if(currentQuoteIndex >= shuffledQuotes.length) {
-                    shuffledQuotes.sort(() => 0.5 - Math.random());
-                    currentQuoteIndex = 0;
-                }
+                if(currentQuoteIndex >= shuffledQuotes.length) { shuffledQuotes.sort(() => 0.5 - Math.random()); currentQuoteIndex = 0; }
                 const quote = shuffledQuotes[currentQuoteIndex++];
-                
-                const section = document.createElement('div');
-                section.className = 'reel-section';
+                const section = document.createElement('div'); section.className = 'reel-section';
                 section.innerHTML = generateReelHTML(quote);
                 container.appendChild(section);
             }
@@ -428,97 +346,128 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             loadMoreReels(5);
-
             const container = document.getElementById('reelsContainer');
             const popup = document.getElementById('scrollPopup');
+            
+            // Increment Streak on first load of the day
+            currentStreak++;
+            localStorage.setItem('ntrixStreak', currentStreak);
+            document.getElementById('streakCount').innerText = currentStreak;
 
             if(container) {
                 container.addEventListener('scroll', () => {
-                    if(!popup.classList.contains('hidden')) {
-                        popup.classList.add('hidden');
-                    }
-                }, { once: true });
-
-                container.addEventListener('scroll', () => {
-                    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 1000) {
-                        loadMoreReels(3);
-                    }
+                    if(!popup.classList.contains('hidden')) popup.classList.add('hidden');
+                    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 1000) loadMoreReels(3);
                 });
             }
         });
 
-        function toggleLike(id, baseCount) {
-            const btn = document.getElementById(`likeBtn-${id}`);
+        // 3. HEART BURST & LIKE TOGGLE
+        function toggleLike(btn, id, baseCount) {
             const icon = document.getElementById(`likeIcon-${id}`);
             const countDisplay = document.getElementById(`likeCount-${id}`);
 
             if (likedState.has(id)) {
-                // Unlike it
-                likedState.delete(id);
-                btn.classList.remove('liked');
-                icon.innerHTML = '♡'; 
-                countDisplay.innerText = baseCount; 
+                likedState.delete(id); btn.classList.remove('liked');
+                icon.innerHTML = '♡'; countDisplay.innerText = baseCount; 
             } else {
-                // Like it
-                likedState.add(id);
-                btn.classList.add('liked');
-                icon.innerHTML = '❤️'; 
-                countDisplay.innerText = baseCount + 1; 
+                likedState.add(id); btn.classList.add('liked');
+                icon.innerHTML = '❤️'; countDisplay.innerText = baseCount + 1; 
+                
+                // Burst Animation
+                for(let i=0; i<6; i++) {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️'; heart.className = 'floating-heart';
+                    heart.style.left = Math.random() * 50 + 20 + '%';
+                    btn.appendChild(heart);
+                    setTimeout(() => heart.remove(), 1000);
+                }
             }
         }
 
+        // 4. COMMENTS SYSTEM (Using Prompt/Alert to save space)
+        function openComment(id) {
+            let userComment = prompt("Drop your opinion on this quote:");
+            if(userComment) {
+                // Store in local storage to simulate saving
+                let comments = JSON.parse(localStorage.getItem('ntrixComments') || '{}');
+                if(!comments[id]) comments[id] = [];
+                comments[id].push(userComment);
+                localStorage.setItem('ntrixComments', JSON.stringify(comments));
+                alert("Thank you! Your comment has been saved.");
+            }
+        }
+
+        // 5. SAVE / BOOKMARK FEATURE
+        function toggleSave(btn, id) {
+            const icon = document.getElementById(`saveIcon-${id}`);
+            if(btn.classList.contains('saved')) {
+                btn.classList.remove('saved'); icon.innerHTML = '🔖';
+            } else {
+                btn.classList.add('saved'); icon.innerHTML = '📑';
+                alert("Quote saved to your browser bookmarks!");
+            }
+        }
+
+        // 6. TEXT TO SPEECH (KANNADA AUDIO)
+        function speakQuote(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop current speech
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'kn-IN'; // Kannada language code
+                utterance.rate = 0.9; // Slightly slower for readability
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Sorry, your browser does not support Audio playback.");
+            }
+        }
+
+        // 7. PWA INSTALL PROMPT
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installAppBtn').style.display = 'block';
+        });
+
+        document.getElementById('installAppBtn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.getElementById('installAppBtn').style.display = 'none';
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        // 8. SHARE
         async function shareCurrentQuote(btnElement, idCounter) {
-            const shareBtn = btnElement;
-            const originalBtnText = shareBtn.innerHTML;
-            
-            shareBtn.innerHTML = '<span>⏳</span> PREPARING...';
-            
+            const originalBtnText = btnElement.innerHTML;
+            btnElement.innerHTML = '<span>⏳</span><span class="label">Wait..</span>';
             const cardElement = document.getElementById(`cardToShare-${idCounter}`);
             const actionsArea = document.getElementById(`actionsArea-${idCounter}`);
             const currentQuote = document.getElementById(`quoteText-${idCounter}`).innerText;
-            
             actionsArea.style.display = 'none';
 
             try {
-                if (typeof html2canvas === 'undefined') {
-                    alert("Sharing tool is still loading. Please try again in a few seconds.");
-                    return;
-                }
-                
-                const canvas = await html2canvas(cardElement, {
-                    backgroundColor: '#151b23',
-                    scale: 2,
-                    useCORS: true
-                });
-
+                if (typeof html2canvas === 'undefined') return alert("Sharing tool loading...");
+                const canvas = await html2canvas(cardElement, { backgroundColor: cardElement.style.backgroundColor || '#151b23', scale: 2, useCORS: true });
                 canvas.toBlob(async (blob) => {
                     const file = new File([blob], 'NTrix-Quote.png', { type: 'image/png' });
-                    
-                    const shareText = `"${currentQuote}"\n\nSecuring Your Space. Powering Your Tech.\n\n🌐 View more quotes here: ${window.location.href}`;
-
-                    const shareData = {
-                        title: 'Daily Motivation from NTRIX Energy',
-                        text: shareText,
-                        files: [file]
-                    };
+                    const shareText = `"${currentQuote}"\n\nPowered by NTRIX IT SERVICES.\n🌐 View more: ${window.location.href}`;
+                    const shareData = { title: 'NTRIX Energy', text: shareText, files: [file] };
 
                     if (navigator.canShare && navigator.canShare(shareData)) {
                         await navigator.share(shareData);
                     } else {
-                        alert("Direct image sharing to apps isn't fully supported on this browser, so we are downloading the image for you to share!");
-                        const link = document.createElement('a');
-                        link.download = 'NTrix-Quote.png';
-                        link.href = canvas.toDataURL();
-                        link.click();
+                        const link = document.createElement('a'); link.download = 'NTrix-Quote.png'; link.href = canvas.toDataURL(); link.click();
                     }
                 }, 'image/png');
-
             } catch (error) {
-                console.error("Error creating image:", error);
-                alert("Something went wrong while creating the image. Please try again.");
+                alert("Something went wrong. Please try again.");
             } finally {
-                actionsArea.style.display = 'flex';
-                shareBtn.innerHTML = originalBtnText;
+                actionsArea.style.display = 'flex'; btnElement.innerHTML = originalBtnText;
             }
         }
     </script>
