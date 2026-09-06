@@ -187,12 +187,19 @@
             align-items: center; justify-content: center; user-select: none;
         }
 
+        /* UPDATED: Starts out Gold */
         .btn-like {
-            background-color: transparent; color: var(--heart-red); border: 2px solid var(--heart-red);
+            background-color: transparent; color: var(--gold-main); border: 2px solid var(--gold-main);
             padding: 8px 15px; font-size: 0.95rem; gap: 6px; flex: 1;
         }
-        .btn-like:hover { background-color: rgba(255, 77, 77, 0.1); }
-        .btn-like.liked { background-color: rgba(255, 77, 77, 0.15); }
+        .btn-like:hover { background-color: rgba(255, 204, 0, 0.1); }
+        
+        /* UPDATED: Turns Red when liked */
+        .btn-like.liked { 
+            color: var(--heart-red); 
+            border-color: var(--heart-red); 
+            background-color: rgba(255, 77, 77, 0.15); 
+        }
 
         .btn-share {
             background-color: transparent; color: var(--gold-main); border: 2px solid var(--gold-main);
@@ -219,7 +226,7 @@
                 padding: 10px; border-radius: 15px;
                 grid-template-areas: "center center" "coffee tea" "water water";
                 grid-template-columns: 1fr 1fr; gap: 8px;
-                height: 100%; max-height: 100%; /* Forces everything to fit within the viewport */
+                height: 100%; max-height: 100%;
             }
             .center-card { padding: 12px; border-width: 2px; border-radius: 12px; }
             .header-row { flex-direction: column; gap: 5px; margin-bottom: 5px; }
@@ -229,7 +236,6 @@
             .quote-container { padding: 15px 10px; margin: 5px 0; }
             .bracket-tl, .bracket-br { width: 70%; height: 35%; border-width: 1px; }
             
-            /* Responsive fonts tightened to prevent overflow */
             .font-xs { font-size: 0.85rem; } .font-sm { font-size: 0.95rem; } .font-md { font-size: 1.1rem; } .font-lg { font-size: 1.35rem; }
             
             .side-panel { padding: 10px; border-width: 1px; }
@@ -323,7 +329,6 @@
         let currentQuoteIndex = 0;
         let reelCounter = 0; 
         
-        // Track unique likes to prevent cross-liking issues
         const likedState = new Set();
 
         function generateReelHTML(quoteText) {
@@ -340,7 +345,6 @@
             let coffeeListHTML = selCoffee.map(b => `<li>${b}</li>`).join('');
             let teaListHTML = selTea.map(b => `<li>${b}</li>`).join('');
 
-            // Generate a random like count between 50 and 500 for a realistic look
             const randomLikes = Math.floor(Math.random() * 450) + 50;
 
             return `
@@ -366,7 +370,7 @@
                         <div class="actions-area" id="actionsArea-${reelCounter}">
                             <div class="action-group-top">
                                 <button class="btn-like" id="likeBtn-${reelCounter}" onclick="toggleLike(${reelCounter}, ${randomLikes})" title="Like this Quote">
-                                    <span class="icon" id="likeIcon-${reelCounter}">🤍</span>
+                                    <span class="icon" id="likeIcon-${reelCounter}">♡</span>
                                     <span id="likeCount-${reelCounter}">${randomLikes}</span>
                                 </button>
                                 <button class="btn-share" onclick="shareCurrentQuote(this, ${reelCounter})" title="Share this Quote">
@@ -445,7 +449,7 @@
             }
         });
 
-        // FIXED: Now targets the exact button ID and increments/decrements the count
+        // UPDATED: Toggles back and forth between '♡' and '❤️'
         function toggleLike(id, baseCount) {
             const btn = document.getElementById(`likeBtn-${id}`);
             const icon = document.getElementById(`likeIcon-${id}`);
@@ -455,14 +459,14 @@
                 // Unlike it
                 likedState.delete(id);
                 btn.classList.remove('liked');
-                icon.innerHTML = '🤍';
-                countDisplay.innerText = baseCount; // return to normal
+                icon.innerHTML = '♡'; 
+                countDisplay.innerText = baseCount; 
             } else {
                 // Like it
                 likedState.add(id);
                 btn.classList.add('liked');
-                icon.innerHTML = '❤️';
-                countDisplay.innerText = baseCount + 1; // add 1
+                icon.innerHTML = '❤️'; 
+                countDisplay.innerText = baseCount + 1; 
             }
         }
 
