@@ -83,14 +83,17 @@
         .graphic-display img { width: 45px; height: 45px; object-fit: contain; animation: float 3s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        .panel-title { color: var(--gold-main); margin: 0 0 5px 0; font-size: 0.9rem; font-weight: 700; text-transform: uppercase;}
+        .panel-text-content { width: 100%; }
+        .panel-title { color: var(--gold-main); margin: 0; font-size: 0.9rem; font-weight: 700; text-transform: uppercase;}
+        .panel-sub { font-size: 0.75rem; color: var(--text-grey); margin-bottom: 8px; margin-top: 2px;}
+
         .benefit-list { list-style: none; padding: 0; margin: 0; font-size: 0.8rem; line-height: 1.4; color: #d1d5da; }
         .benefit-list li { margin-bottom: 5px; display: flex; align-items: flex-start;}
         .benefit-list li::before { content: '•'; color: var(--gold-main); margin-right: 6px; font-size: 1.1em;}
 
         /* === CENTER CARD & QUOTES === */
         .center-card {
-            background: linear-gradient(145deg, #151b23, #0f1319); /* Default Dynamic BG */
+            background: linear-gradient(145deg, #151b23, #0f1319); /* Default BG */
             border: 4px solid var(--gold-main); border-radius: 18px; padding: 20px; 
             display: flex; flex-direction: column; justify-content: space-between; 
             box-shadow: 0 0 25px var(--gold-glow); height: 100%; flex-grow: 1; transition: background 0.5s ease;
@@ -127,10 +130,8 @@
             position: relative; overflow: visible;
         }
         .btn-action:hover { background-color: rgba(255, 204, 0, 0.1); }
-        
         .btn-like.liked { color: var(--heart-red); border-color: var(--heart-red); background-color: rgba(255, 77, 77, 0.15); }
 
-        /* Floating Hearts Animation */
         .floating-heart {
             position: absolute; font-size: 1.5rem; pointer-events: none;
             animation: floatUp 1s ease-out forwards; z-index: 50;
@@ -140,7 +141,14 @@
             100% { transform: translateY(-60px) scale(1.5) rotate(15deg); opacity: 0; }
         }
 
-        .btn-main { background-color: var(--gold-main); color: #000000; border: none; padding: 12px 20px; font-size: 1rem; text-decoration: none; box-shadow: 0 0 15px var(--gold-dim); width: 100%; text-align: center; font-weight: bold; border-radius: 30px;}
+        /* GET A TECH QUOTE SECTION */
+        .btn-main { 
+            background-color: var(--gold-main); color: #000000; border: none; padding: 12px 20px; 
+            font-size: 1rem; text-decoration: none; box-shadow: 0 0 15px var(--gold-dim); width: 100%; 
+            text-align: center; font-weight: bold; border-radius: 30px; display: flex; justify-content: center; align-items: center;
+        }
+        .action-footer { text-align: center; font-size: 0.65rem; color: var(--text-grey); margin-top: -3px; margin-bottom: 5px; }
+
         .water-section { display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-grey); margin-top: 10px; }
         .water-section img { height: 20px; width: auto; animation: float 2s ease-in-out infinite alternate; }
 
@@ -166,13 +174,10 @@
         /* === ALL-IN-ONE-PAGE MOBILE COMPRESSION === */
         @media (max-width: 950px) {
             .ntrix-wrapper { flex-direction: column; padding: 10px; gap: 8px; border-radius: 15px; }
-            .main-col { max-height: 60%; } /* Keeps center card from eating all space */
+            .main-col { max-height: 62%; } 
             
-            /* The 4 micro-panels grid for Mobile */
-            .side-col { display: none; /* Hide desktop side columns */ }
-            .mobile-panels-grid {
-                display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; flex-shrink: 0;
-            }
+            .side-col { display: none; }
+            .mobile-panels-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; flex-shrink: 0; }
             
             .center-card { padding: 12px; border-width: 2px; border-radius: 12px; }
             .logo-box { height: 30px; margin-bottom: 2px;}
@@ -182,25 +187,26 @@
             .quote-container { padding: 15px 10px; margin: 2px 0; }
             .bracket-tl, .bracket-br { width: 70%; height: 35%; border-width: 1px; }
             
-            /* Responsive fonts tightened to prevent overflow */
             .font-xs { font-size: 0.85rem; } .font-sm { font-size: 1rem; } .font-md { font-size: 1.15rem; } .font-lg { font-size: 1.4rem; }
             
-            /* Micro Panel Styling */
-            .side-panel { padding: 6px; border-width: 1px; flex-direction: row; align-items: center; gap: 8px;}
+            /* Micro Panel Styling to fit everything */
+            .side-panel { padding: 6px; flex-direction: row; align-items: center; gap: 8px;}
             .graphic-display { width: 35px; height: 35px; margin: 0; border: none; background: transparent;}
             .graphic-display img { width: 25px; height: 25px; }
-            .panel-text-content { flex: 1; }
-            .panel-title { font-size: 0.65rem; margin-bottom: 2px; }
+            
+            .panel-title { font-size: 0.65rem; margin-bottom: 0px; }
+            .panel-sub { font-size: 0.55rem; margin-bottom: 3px; }
+            
             .benefit-list { font-size: 0.55rem; line-height: 1.2; }
             .benefit-list li { margin-bottom: 2px; }
             
             .btn-action { padding: 8px 0; font-size: 0.8rem; }
             .btn-main { padding: 10px 15px; font-size: 0.9rem; }
+            .action-footer { font-size: 0.55rem; }
+            
             .water-section { font-size: 0.75rem; margin-top: 2px; }
             .action-group-top { gap: 6px; }
         }
-        
-        /* Desktop visibility for mobile grid */
         @media (min-width: 951px) { .mobile-panels-grid { display: none; } }
     </style>
 </head>
@@ -240,18 +246,18 @@
             "ಗೌರವ ಸಿಗದ ಜಾಗದಲ್ಲಿ ಒಂದು ಕ್ಷಣನೂ ಇರ್ಬಾದು... ಯಾಕಂದ್ರೆ ಒಂಟಿಯಾಗಿರೋದು ಅವಮಾನ ಅಲ್ಲ, ಆದ್ರೆ ಬೆಲೆ ಇಲ್ಲದ ಕಡೆ ಇರೋದು ನಿಜವಾದ ಅವಮಾನ!"
         ];
 
-        // 2-Line Arrays for dynamic switching
+        // Translated IT and CCTV Tips
         const itTips = [
-            ["Use strong, unique passwords.", "Enable Two-Factor Auth (2FA)."],
-            ["Update software regularly.", "Avoid clicking unknown links."],
-            ["Backup data to cloud/drive.", "Use a reliable Antivirus."],
-            ["Never share OTPs with anyone.", "Lock PC when stepping away."]
+            ["ಬಲವಾದ, ವಿಶಿಷ್ಟವಾದ ಪಾಸ್‌ವರ್ಡ್ ಬಳಸಿ.", "2FA ಭದ್ರತೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."],
+            ["ಸಾಫ್ಟ್‌ವೇರ್ ಅನ್ನು ನಿಯಮಿತವಾಗಿ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ.", "ಗೊತ್ತಿಲ್ಲದ ಲಿಂಕ್‌ಗಳನ್ನು ಕ್ಲಿಕ್ ಮಾಡಬೇಡಿ."],
+            ["ಡೇಟಾವನ್ನು ಕ್ಲೌಡ್‌ಗೆ ಬ್ಯಾಕಪ್ ಮಾಡಿ.", "ವಿಶ್ವಾಸಾರ್ಹ ಆಂಟಿವೈರಸ್ ಬಳಸಿ."],
+            ["OTP ಗಳನ್ನು ಯಾರೊಂದಿಗೂ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ.", "ಹೊರಗೆ ಹೋಗುವಾಗ PC ಲಾಕ್ ಮಾಡಿ."]
         ];
         const cctvTips = [
-            ["Clean camera lenses monthly.", "Check DVR/NVR storage weekly."],
-            ["Ensure cameras cover entry points.", "Use IR cameras for night vision."],
-            ["Secure DVR in a locked cabinet.", "Check UPS backup regularly."],
-            ["Adjust angles to avoid glare.", "Update firmware for security."]
+            ["ಕ್ಯಾಮೆರಾ ಲೆನ್ಸ್‌ಗಳನ್ನು ತಿಂಗಳಿಗೊಮ್ಮೆ ಸ್ವಚ್ಛಗೊಳಿಸಿ.", "ಡಿವಿಆರ್ ಸ್ಟೋರೇಜ್ ವಾರಕ್ಕೊಮ್ಮೆ ಪರಿಶೀಲಿಸಿ."],
+            ["ಪ್ರವೇಶ ದ್ವಾರಗಳನ್ನು ಕ್ಯಾಮೆರಾಗಳು ಕವರ್ ಮಾಡಲಿ.", "ರಾತ್ರಿ ದೃಷ್ಟಿಗಾಗಿ ಐಆರ್ ಕ್ಯಾಮೆರಾಗಳನ್ನು ಬಳಸಿ."],
+            ["ಲಾಕ್ ಮಾಡಿದ ಕ್ಯಾಬಿನೆಟ್‌ನಲ್ಲಿ ಡಿವಿಆರ್ ಇರಿಸಿ.", "ಯುಪಿಎಸ್ ಬ್ಯಾಕಪ್ ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಿ."],
+            ["ಹೊಳಪನ್ನು ತಪ್ಪಿಸಲು ಕೋನಗಳನ್ನು ಹೊಂದಿಸಿ.", "ಭದ್ರತೆಗಾಗಿ ಫರ್ಮ್‌ವೇರ್ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ."]
         ];
         const coffeeBenefits = [
             ["ಆಂಟಿಆಕ್ಸಿಡೆಂಟ್‌ಗಳನ್ನು ಹೊಂದಿದೆ.", "ಮೆದುಳಿನ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ."],
@@ -264,7 +270,7 @@
             ["ಕೀಲುಗಳನ್ನು ರಕ್ಷಿಸುತ್ತದೆ.", "ರೋಗನಿರೋಧಕ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ."]
         ];
 
-        // Dynamic Backgrounds for Center Card
+        // Dynamic Backgrounds for Center Card using background-image format for html2canvas compatibility
         const bgGradients = [
             "linear-gradient(145deg, #151b23, #0f1319)", // Default Dark
             "linear-gradient(145deg, #101914, #0a110d)", // Subtle Green
@@ -278,7 +284,6 @@
         let reelCounter = 0; 
         
         const likedState = new Set();
-        // Store comments locally (simulated database)
         const commentsDB = {};
 
         function getRandom2(arr) {
@@ -286,12 +291,14 @@
             return `<li>${item[0]}</li><li>${item[1]}</li>`;
         }
 
-        function generatePanel(title, listHTML, imgUrl) {
+        // Updated Generator with Subtitles
+        function generatePanel(title, subtitle, listHTML, imgUrl) {
             return `
                 <div class="side-panel">
-                    <div class="graphic-display"><img src="${imgUrl}" alt="Icon"></div>
+                    <div class="graphic-display"><img src="${imgUrl}" alt="Icon" crossorigin="anonymous"></div>
                     <div class="panel-text-content">
                         <div class="panel-title">${title}</div>
+                        <div class="panel-sub">${subtitle}</div>
                         <ul class="benefit-list">${listHTML}</ul>
                     </div>
                 </div>
@@ -301,7 +308,6 @@
         function generateReelHTML(quoteText) {
             reelCounter++;
             
-            // Randomize content
             const itHTML = getRandom2(itTips);
             const cctvHTML = getRandom2(cctvTips);
             const coffeeHTML = getRandom2(coffeeBenefits);
@@ -309,7 +315,6 @@
             const randomBg = bgGradients[Math.floor(Math.random() * bgGradients.length)];
             const randomLikes = Math.floor(Math.random() * 450) + 50;
             
-            // Initialize empty comments array for this reel
             commentsDB[reelCounter] = [
                 { user: "TechEnthusiast99", text: "Super true! Awesome quote." },
                 { user: "BusinessOwner", text: "Needed to hear this today. Thanks NTRIX!" }
@@ -321,27 +326,27 @@
             else if (quoteText.length > 120) fontClass = 'font-sm';
             else if (quoteText.length > 70) fontClass = 'font-md';
 
-            // Desktop Left/Right Columns
+            // Desktop Left/Right Columns (With Subtitles added back)
             const desktopLeft = `
                 <div class="side-col">
-                    ${generatePanel("IT SECURITY TIPS", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
-                    ${generatePanel("ಕಾಫಿಯ ಪ್ರಯೋಜನಗಳು", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
+                    ${generatePanel("ಐಟಿ ಭದ್ರತಾ ಸಲಹೆಗಳು", "(ದೈನಂದಿನ ಸಲಹೆ):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
+                    ${generatePanel("ಕಾಫಿಯ ಪ್ರಯೋಜನಗಳು", "(ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
                 </div>
             `;
             const desktopRight = `
                 <div class="side-col">
-                    ${generatePanel("CCTV SAFETY TIPS", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
-                    ${generatePanel("ಚಹಾದ ಪ್ರಯೋಜನಗಳು", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
+                    ${generatePanel("ಸಿಸಿಟಿವಿ ಸುರಕ್ಷತಾ ಸಲಹೆಗಳು", "(ದೈನಂದಿನ ಸಲಹೆ):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
+                    ${generatePanel("ಚಹಾದ ಪ್ರಯೋಜನಗಳು", "(ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
                 </div>
             `;
 
-            // Mobile 2x2 Grid (Hidden on Desktop)
+            // Mobile 2x2 Grid 
             const mobileGrid = `
                 <div class="mobile-panels-grid">
-                    ${generatePanel("IT SECURITY", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
-                    ${generatePanel("CCTV SAFETY", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
-                    ${generatePanel("ಕಾಫಿ", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
-                    ${generatePanel("ಚಹಾ", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
+                    ${generatePanel("ಐಟಿ ಭದ್ರತೆ", "(ದೈನಂದಿನ ಸಲಹೆ):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
+                    ${generatePanel("ಸಿಸಿಟಿವಿ ಸೇಫ್ಟಿ", "(ದೈನಂದಿನ ಸಲಹೆ):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
+                    ${generatePanel("ಕಾಫಿಯ ಪ್ರಯೋಜನಗಳು", "(ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
+                    ${generatePanel("ಚಹಾದ ಪ್ರಯೋಜನಗಳು", "(ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
                 </div>
             `;
 
@@ -350,7 +355,7 @@
                     ${desktopLeft}
                     
                     <div class="main-col">
-                        <div class="center-card" id="cardToShare-${reelCounter}" style="background: ${randomBg};">
+                        <div class="center-card" id="cardToShare-${reelCounter}" style="background-image: ${randomBg};">
                             
                             <div class="header-row">
                                 <div class="logo-box">
@@ -378,9 +383,12 @@
                                         <span>📤</span> SHARE
                                     </button>
                                 </div>
+                                
                                 <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query." class="btn-main" target="_blank">
-                                    GET A TECH QUOTE
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="height: 22px; margin-right: 10px;" crossorigin="anonymous">
+                                    GET A TECH SERVICE
                                 </a>
+                                <div class="action-footer">Request consultation for business queries</div>
                             </div>
                         </div>
                     </div>
@@ -389,7 +397,7 @@
                     ${mobileGrid}
                     
                     <div class="water-section" style="width: 100%;">
-                        <img src="https://img.icons8.com/color/48/water-bottle.png" alt="Water Bottle">
+                        <img src="https://img.icons8.com/color/48/water-bottle.png" alt="Water Bottle" crossorigin="anonymous">
                         <span><strong>REMINDER:</strong> Drink more water!</span>
                     </div>
                 </div>
@@ -425,25 +433,21 @@
             }
         });
 
-        // Interactive Heart Burst Like Button
         function toggleLike(btnElement, id, baseCount) {
             const icon = document.getElementById(`likeIcon-${id}`);
             const countDisplay = document.getElementById(`likeCount-${id}`);
 
             if (likedState.has(id)) {
-                // Unlike
                 likedState.delete(id);
                 btnElement.classList.remove('liked');
                 icon.innerHTML = '♡'; 
                 countDisplay.innerText = baseCount; 
             } else {
-                // Like & Burst Animation
                 likedState.add(id);
                 btnElement.classList.add('liked');
                 icon.innerHTML = '❤️'; 
                 countDisplay.innerText = baseCount + 1; 
                 
-                // Spawn 5 flying hearts
                 for(let i=0; i<5; i++){
                     const heart = document.createElement('div');
                     heart.innerHTML = '❤️';
@@ -455,7 +459,6 @@
             }
         }
 
-        // Comments System Logic
         let currentCommentReelId = null;
 
         function openComments(id) {
@@ -480,7 +483,6 @@
                 </div>
             `).join('');
             
-            // Auto scroll to bottom
             list.scrollTop = list.scrollHeight;
         }
 
@@ -501,11 +503,11 @@
             input.value = '';
             renderComments();
             
-            // Update button count on the main page
             const btnCount = document.getElementById(`btnCommentCount-${currentCommentReelId}`);
             if(btnCount) btnCount.innerText = commentsDB[currentCommentReelId].length;
         }
 
+        // FIXED Share Button - Using standard Blob promise and handling gradients
         async function shareCurrentQuote(btnElement, idCounter) {
             const shareBtn = btnElement;
             const originalBtnText = shareBtn.innerHTML;
@@ -515,34 +517,40 @@
             const actionsArea = document.getElementById(`actionsArea-${idCounter}`);
             const currentQuote = document.getElementById(`quoteText-${idCounter}`).innerText;
             
-            actionsArea.style.display = 'none'; // Hide buttons for screenshot
+            // Hide buttons so they don't appear in the captured image
+            actionsArea.style.display = 'none'; 
 
             try {
+                // Ensure html2canvas captures the gradient by leaving background null
                 const canvas = await html2canvas(cardElement, {
-                    backgroundColor: cardElement.style.background || '#151b23',
-                    scale: 2, useCORS: true
+                    scale: 2, 
+                    useCORS: true,
+                    backgroundColor: null 
                 });
 
-                canvas.toBlob(async (blob) => {
-                    const file = new File([blob], 'NTrix-Quote.png', { type: 'image/png' });
-                    const shareText = `"${currentQuote}"\n\nPOWERED BY NTRIX IT SERVICES.\n🌐 More quotes: ${window.location.href}`;
+                // Correctly resolve the image Blob asynchronously
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                const file = new File([blob], 'NTrix-Quote.png', { type: 'image/png' });
+                
+                const shareText = `"${currentQuote}"\n\nPOWERED BY NTRIX IT SERVICES.\n🌐 More quotes: ${window.location.href}`;
+                const shareData = { title: 'NTRIX Energy', text: shareText, files: [file] };
 
-                    const shareData = { title: 'NTRIX Energy', text: shareText, files: [file] };
-
-                    if (navigator.canShare && navigator.canShare(shareData)) {
-                        await navigator.share(shareData);
-                    } else {
-                        const link = document.createElement('a');
-                        link.download = 'NTrix-Quote.png';
-                        link.href = canvas.toDataURL();
-                        link.click();
-                    }
-                }, 'image/png');
+                // Open phone's native share menu
+                if (navigator.canShare && navigator.canShare(shareData)) {
+                    await navigator.share(shareData);
+                } else {
+                    // Fallback to download if browser doesn't support Web Share API
+                    const link = document.createElement('a');
+                    link.download = 'NTrix-Quote.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                }
 
             } catch (error) {
-                console.error(error);
+                console.error("Capture Error:", error);
                 alert("Something went wrong capturing the image.");
             } finally {
+                // Restore buttons
                 actionsArea.style.display = 'flex';
                 shareBtn.innerHTML = originalBtnText;
             }
