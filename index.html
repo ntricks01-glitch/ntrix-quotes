@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTRIX IT SERVICES - Daily Kannada Motivation</title>
+    <title>NTRIX Energy - Powered by NTRIX IT SERVICES</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Tiro+Kannada&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -157,7 +157,7 @@
 
         .brand-text { text-align: right; }
         .brand-name { font-family: 'Montserrat', sans-serif; color: var(--gold-main); font-size: 1.8rem; font-weight: 800; margin: 0; line-height: 1; letter-spacing: 0.5px; }
-        .brand-tagline { color: var(--text-grey); font-size: 0.7rem; margin-top: 3px; }
+        .brand-tagline { color: var(--text-grey); font-size: 0.75rem; margin-top: 3px; font-weight: 600; }
 
         .quote-container {
             flex-grow: 1; position: relative; padding: 25px 20px; margin: 10px 0;
@@ -187,14 +187,12 @@
             align-items: center; justify-content: center; user-select: none;
         }
 
-        /* UPDATED: Starts out Gold */
         .btn-like {
             background-color: transparent; color: var(--gold-main); border: 2px solid var(--gold-main);
             padding: 8px 15px; font-size: 0.95rem; gap: 6px; flex: 1;
         }
         .btn-like:hover { background-color: rgba(255, 204, 0, 0.1); }
         
-        /* UPDATED: Turns Red when liked */
         .btn-like.liked { 
             color: var(--heart-red); 
             border-color: var(--heart-red); 
@@ -355,8 +353,8 @@
                                 <img src="Ntrix%20Logo.jpg" alt="NTRIX" style="color: white; font-weight: bold; font-size: 1.2rem;" crossorigin="anonymous">
                             </div>
                             <div class="brand-text">
-                                <h1 class="brand-name">NTRIX IT SERVICES</h1>
-                                <div class="brand-tagline">Securing Your Space. Powering Your Tech.</div>
+                                <h1 class="brand-name">NTRIX Energy</h1>
+                                <div class="brand-tagline">Powered by NTRIX IT SERVICES</div>
                             </div>
                         </div>
 
@@ -449,7 +447,6 @@
             }
         });
 
-        // UPDATED: Toggles back and forth between '♡' and '❤️'
         function toggleLike(id, baseCount) {
             const btn = document.getElementById(`likeBtn-${id}`);
             const icon = document.getElementById(`likeIcon-${id}`);
@@ -500,7 +497,7 @@
                     const shareText = `"${currentQuote}"\n\nSecuring Your Space. Powering Your Tech.\n\n🌐 View more quotes here: ${window.location.href}`;
 
                     const shareData = {
-                        title: 'Daily Motivation from NTRIX',
+                        title: 'Daily Motivation from NTRIX Energy',
                         text: shareText,
                         files: [file]
                     };
