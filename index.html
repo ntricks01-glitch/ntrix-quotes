@@ -17,23 +17,83 @@
             --text-grey: #8b949e;
         }
 
+        /* === REELS SCROLLING SETUP === */
         body {
             background-color: var(--bg-page);
             color: var(--text-white);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             box-sizing: border-box;
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 30px 30px;
+            overflow: hidden; /* Hide main body scroll */
         }
 
+        .reels-container {
+            height: 100vh;
+            width: 100vw;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory; /* This creates the Reels effect */
+            scroll-behavior: smooth;
+        }
+
+        /* Hide scrollbar for a cleaner Reel look */
+        .reels-container::-webkit-scrollbar { display: none; }
+        .reels-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .reel-section {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start; /* Snaps to the top of each section */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* === SCROLL POPUP ANIMATION === */
+        .scroll-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid var(--gold-main);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            z-index: 1000;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            pointer-events: none; /* Allows scrolling right through it */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            box-shadow: 0 0 20px var(--gold-glow);
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-popup span {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            40% { transform: translate(-50%, -50%) translateY(-15px); }
+            60% { transform: translate(-50%, -50%) translateY(-7px); }
+        }
+
+        .scroll-popup.hidden {
+            opacity: 0;
+            transform: translate(-50%, -60%);
+        }
+
+        /* === EXISTING NTRIX STYLES === */
         .ntrix-wrapper {
             width: 100%;
             max-width: 1200px;
@@ -51,7 +111,6 @@
             box-sizing: border-box;
         }
 
-        /* === SIDE PANELS (Coffee/Tea) === */
         .side-panel {
             background-color: var(--bg-card);
             border: 2px solid var(--gold-main);
@@ -100,29 +159,14 @@
             text-transform: uppercase;
         }
 
-        .panel-sub {
-            font-size: 0.75rem;
-            color: var(--text-grey);
-            margin-bottom: 12px;
-        }
+        .panel-sub { font-size: 0.75rem; color: var(--text-grey); margin-bottom: 12px; }
 
         .benefit-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-size: 0.85rem;
-            line-height: 1.5;
-            color: #d1d5da;
+            list-style: none; padding: 0; margin: 0; font-size: 0.85rem; line-height: 1.5; color: #d1d5da;
         }
-
         .benefit-list li { margin-bottom: 8px; display: flex; }
-        .benefit-list li::before {
-            content: '- ';
-            color: var(--text-grey);
-            margin-right: 6px;
-        }
+        .benefit-list li::before { content: '- '; color: var(--text-grey); margin-right: 6px; }
 
-        /* === CENTER MAIN CARD === */
         .center-card {
             grid-area: center;
             background-color: var(--bg-card);
@@ -137,214 +181,71 @@
             overflow: hidden;
         }
 
-        /* Branding Header */
-        .header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        /* FIXED: Logo Box now has a transparent background */
-        .logo-box {
-            background-color: transparent; 
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .logo-box img {
-            height: 100%;
-            width: auto;
-            object-fit: contain;
-        }
+        .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .logo-box { background-color: transparent; height: 50px; display: flex; align-items: center; justify-content: center; }
+        .logo-box img { height: 100%; width: auto; object-fit: contain; }
 
         .brand-text { text-align: right; }
-        .brand-name {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--gold-main);
-            font-size: 2rem;
-            font-weight: 800;
-            margin: 0;
-            line-height: 1;
-            letter-spacing: 0.5px;
-        }
-        .brand-tagline {
-            color: var(--text-grey);
-            font-size: 0.75rem;
-            margin-top: 5px;
-        }
+        .brand-name { font-family: 'Montserrat', sans-serif; color: var(--gold-main); font-size: 2rem; font-weight: 800; margin: 0; line-height: 1; letter-spacing: 0.5px; }
+        .brand-tagline { color: var(--text-grey); font-size: 0.75rem; margin-top: 5px; }
 
-        /* Quote Box */
         .quote-container {
-            flex-grow: 1;
-            position: relative;
-            padding: 35px 25px;
-            margin: 10px 0 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            box-sizing: border-box;
+            flex-grow: 1; position: relative; padding: 35px 25px; margin: 10px 0 20px 0;
+            display: flex; justify-content: center; align-items: center; width: 100%; box-sizing: border-box;
         }
 
-        .bracket-tl, .bracket-br {
-            position: absolute;
-            width: 60%;
-            height: 50%;
-            border: 2px solid var(--gold-main);
-        }
-        .bracket-tl {
-            top: 0; left: 0;
-            border-right: none; border-bottom: none;
-            border-top-left-radius: 12px;
-        }
-        .bracket-br {
-            bottom: 0; right: 0;
-            border-left: none; border-top: none;
-            border-bottom-right-radius: 12px;
-        }
+        .bracket-tl, .bracket-br { position: absolute; width: 60%; height: 50%; border: 2px solid var(--gold-main); }
+        .bracket-tl { top: 0; left: 0; border-right: none; border-bottom: none; border-top-left-radius: 12px; }
+        .bracket-br { bottom: 0; right: 0; border-left: none; border-top: none; border-bottom-right-radius: 12px; }
 
         .quote-text {
-            color: var(--text-white);
-            font-family: 'Tiro Kannada', serif;
-            text-align: center;
-            margin: 0;
-            line-height: 1.6;
-            width: 100%;
-            z-index: 2;
+            color: var(--text-white); font-family: 'Tiro Kannada', serif; text-align: center;
+            margin: 0; line-height: 1.6; width: 100%; z-index: 2;
         }
 
-        .quote-icons {
-            position: absolute;
-            bottom: 5px;
-            left: 15px;
-            display: flex;
-            gap: 8px;
-            font-size: 1.1rem;
-            opacity: 0.8;
-            z-index: 2;
-        }
+        .quote-icons { position: absolute; bottom: 5px; left: 15px; display: flex; gap: 8px; font-size: 1.1rem; opacity: 0.8; z-index: 2; }
 
-        /* Font Sizes */
-        .font-xs { font-size: 1.15rem; }
-        .font-sm { font-size: 1.4rem; }
-        .font-md { font-size: 1.7rem; }
-        .font-lg { font-size: 2.1rem; }
+        .font-xs { font-size: 1.15rem; } .font-sm { font-size: 1.4rem; } .font-md { font-size: 1.7rem; } .font-lg { font-size: 2.1rem; }
 
-        /* === BUTTONS === */
-        .actions-area {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .action-row {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 8px;
-            width: 100%;
-            box-sizing: border-box;
-        }
+        .actions-area { display: flex; flex-direction: column; width: 100%; }
+        .action-row { display: flex; justify-content: center; gap: 15px; margin-bottom: 8px; width: 100%; box-sizing: border-box; }
 
         .btn-main, .btn-share {
-            box-sizing: border-box;
-            max-width: 100%;
-            text-align: center;
-            font-family: 'Segoe UI', sans-serif;
-            font-weight: 700;
-            border-radius: 30px;
-            transition: 0.2s;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-sizing: border-box; max-width: 100%; text-align: center; font-family: 'Segoe UI', sans-serif;
+            font-weight: 700; border-radius: 30px; transition: 0.2s; cursor: pointer; display: flex;
+            align-items: center; justify-content: center;
         }
 
-        .btn-share {
-            background-color: transparent;
-            color: var(--gold-main);
-            border: 2px solid var(--gold-main);
-            padding: 10px 30px;
-            font-size: 1rem;
-            gap: 8px;
-        }
+        .btn-share { background-color: transparent; color: var(--gold-main); border: 2px solid var(--gold-main); padding: 10px 30px; font-size: 1rem; gap: 8px; }
         .btn-share:hover { background-color: rgba(255, 204, 0, 0.1); }
 
-        .btn-main {
-            background-color: var(--gold-main);
-            color: #000000;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1.05rem;
-            text-decoration: none;
-            box-shadow: 0 0 15px var(--gold-dim);
-        }
-        .btn-main:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 20px var(--gold-glow);
-        }
+        .btn-main { background-color: var(--gold-main); color: #000000; border: none; padding: 12px 30px; font-size: 1.05rem; text-decoration: none; box-shadow: 0 0 15px var(--gold-dim); }
+        .btn-main:hover { transform: scale(1.03); box-shadow: 0 0 20px var(--gold-glow); }
 
-        .action-footer {
-            text-align: center;
-            font-size: 0.65rem;
-            color: var(--text-grey);
-        }
+        .action-footer { text-align: center; font-size: 0.65rem; color: var(--text-grey); }
 
-        /* === WATER REMINDER === */
-        .water-section {
-            grid-area: water;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: var(--text-grey);
-            margin-top: -5px;
-        }
-        .water-section img {
-            height: 25px;
-            width: auto;
-            animation: float 2s ease-in-out infinite alternate;
-        }
+        .water-section { grid-area: water; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text-grey); margin-top: -5px; }
+        .water-section img { height: 25px; width: auto; animation: float 2s ease-in-out infinite alternate; }
         .water-section strong { color: var(--gold-main); font-weight: 700; }
 
         /* === MOBILE RESPONSIVE LOGIC === */
         @media (max-width: 950px) {
             .ntrix-wrapper {
-                padding: 15px;
-                border-radius: 20px;
-                grid-template-areas: 
-                    "center center"
-                    "coffee tea"
-                    "water water";
-                grid-template-columns: 1fr 1fr; 
-                gap: 15px;
+                padding: 15px; border-radius: 20px;
+                grid-template-areas: "center center" "coffee tea" "water water";
+                grid-template-columns: 1fr 1fr; gap: 15px;
+                max-height: 95vh; overflow-y: auto;
             }
-
             .center-card { padding: 20px 15px; }
             .header-row { flex-direction: column; gap: 15px; }
             .brand-text { text-align: center; }
             .brand-name { font-size: 1.6rem; }
-            
             .quote-container { padding: 30px 15px; margin: 10px 0 15px 0;}
             .bracket-tl, .bracket-br { width: 80%; height: 40%; }
-            
-            .font-xs { font-size: 0.95rem; }
-            .font-sm { font-size: 1.15rem; }
-            .font-md { font-size: 1.4rem; }
-            .font-lg { font-size: 1.7rem; }
-
-            /* BUTTONS: Share above Get Quote */
-            .action-row { 
-                flex-direction: column; 
-                align-items: center;
-                gap: 12px;
-            }
+            .font-xs { font-size: 0.95rem; } .font-sm { font-size: 1.15rem; } .font-md { font-size: 1.4rem; } .font-lg { font-size: 1.7rem; }
+            .action-row { flex-direction: column; align-items: center; gap: 12px; }
             .btn-share { width: 100%; padding: 12px 20px; order: 1; }
             .btn-main { width: 100%; padding: 14px 20px; order: 2; font-size: 1rem; }
-            
             .side-panel { padding: 12px 10px; }
             .panel-title { font-size: 0.85rem; }
             .benefit-list { font-size: 0.75rem; }
@@ -355,76 +256,13 @@
 </head>
 <body>
 
-    <div class="ntrix-wrapper">
-        
-        <div class="center-card" id="cardToShare">
-            
-            <div class="header-row">
-                <div class="logo-box">
-                    <img src="Ntrix%20Logo.jpg" alt="NTrix Logo" onerror="this.outerHTML='<span style=\'color:white; font-weight:bold; font-size: 16px;\'>NTrix</span>'" crossorigin="anonymous">
-                </div>
-                <div class="brand-text">
-                    <h1 class="brand-name">NTRIX IT SERVICES</h1>
-                    <div class="brand-tagline">Securing Your Space. Powering Your Tech.</div>
-                </div>
-            </div>
-
-            <div class="quote-container">
-                <div class="bracket-tl"></div>
-                <div class="bracket-br"></div>
-                
-                <p class="quote-text" id="kannadaQuote">Loading your daily inspiration...</p>
-                
-                <div class="quote-icons">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom;">
-                        <path d="M23 7l-4.25 2.5L18.75 7z"></path>
-                        <rect x="2" y="5" width="16" height="10" rx="2" ry="2"></rect>
-                        <path d="M8 15v4"></path>
-                        <path d="M5 19h6"></path>
-                    </svg>
-                    <span style="margin-left: 5px;">💻</span>
-                </div>
-            </div>
-
-            <div class="actions-area" id="actionsArea">
-                <div class="action-row">
-                    <button class="btn-share" id="shareBtn" onclick="shareCurrentQuote()" title="Share this Quote">
-                        <span>📤</span> SHARE
-                    </button>
-
-                    <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query%20from%20the%20NTrix%20mug." class="btn-main">
-                        GET A TECH QUOTE
-                    </a>
-                </div>
-                <div class="action-footer">Request consultation for business queries</div>
-            </div>
-
-        </div>
-
-        <div class="side-panel coffee">
-            <div class="graphic-display">
-                <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png" alt="Coffee">
-            </div>
-            <h4 class="panel-title">COFFEE BENEFITS</h4>
-            <div class="panel-sub">(Changes daily):</div>
-            <ul class="benefit-list" id="coffeeList"></ul>
-        </div>
-
-        <div class="side-panel tea">
-            <div class="graphic-display">
-                <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png" alt="Tea">
-            </div>
-            <h4 class="panel-title">TEA BENEFITS</h4>
-            <div class="panel-sub">(Changes daily):</div>
-            <ul class="benefit-list" id="teaList"></ul>
-        </div>
-
-        <div class="water-section">
-            <img src="https://img.icons8.com/color/48/water-bottle.png" alt="Water Bottle">
-            <span><strong>REMINDER:</strong> Drink more water!</span>
-        </div>
-
+    <div id="scrollPopup" class="scroll-popup">
+        <span>👇</span>
+        Scroll down for more
     </div>
+
+    <div id="reelsContainer" class="reels-container">
+        </div>
 
     <script>
         const kannadaQuotes = [
@@ -488,41 +326,137 @@
             ["Anti-inflammatory Properties.", "Protects Joints.", "Supports Metabolism.", "Boosts Immunity."]
         ];
 
-        function updateDailyContent() {
-            const quoteText = kannadaQuotes[Math.floor(Math.random() * kannadaQuotes.length)];
-            const quoteEl = document.getElementById('kannadaQuote');
-            quoteEl.innerText = quoteText;
+        // Shuffle quotes for random display
+        let shuffledQuotes = [...kannadaQuotes].sort(() => 0.5 - Math.random());
+        let currentQuoteIndex = 0;
+        let reelCounter = 0; // To give unique IDs to cards
 
-            quoteEl.className = 'quote-text'; 
-            const len = quoteText.length;
-            if (len > 300) { quoteEl.classList.add('font-xs'); } 
-            else if (len > 150) { quoteEl.classList.add('font-sm'); } 
-            else if (len > 75) { quoteEl.classList.add('font-md'); } 
-            else { quoteEl.classList.add('font-lg'); }
-
+        function generateReelHTML(quoteText) {
+            reelCounter++;
             const selCoffee = coffeeBenefits[Math.floor(Math.random() * coffeeBenefits.length)];
-            const cList = document.getElementById('coffeeList');
-            cList.innerHTML = '';
-            selCoffee.forEach(b => {
-                const li = document.createElement('li'); li.innerText = b; cList.appendChild(li);
-            });
-
             const selTea = teaBenefits[Math.floor(Math.random() * teaBenefits.length)];
-            const tList = document.getElementById('teaList');
-            tList.innerHTML = '';
-            selTea.forEach(b => {
-                const li = document.createElement('li'); li.innerText = b; tList.appendChild(li);
-            });
+            
+            // Determine font size class dynamically
+            let fontClass = 'font-lg';
+            const len = quoteText.length;
+            if (len > 300) fontClass = 'font-xs';
+            else if (len > 150) fontClass = 'font-sm';
+            else if (len > 75) fontClass = 'font-md';
+
+            // Generate HTML for coffee list
+            let coffeeListHTML = selCoffee.map(b => `<li>${b}</li>`).join('');
+            // Generate HTML for tea list
+            let teaListHTML = selTea.map(b => `<li>${b}</li>`).join('');
+
+            return `
+                <div class="ntrix-wrapper">
+                    <div class="center-card" id="cardToShare-${reelCounter}">
+                        <div class="header-row">
+                            <div class="logo-box">
+                                <img src="Ntrix%20Logo.jpg" alt="NTrix Logo" onerror="this.outerHTML='<span style=\\'color:white; font-weight:bold; font-size: 16px;\\'>NTrix</span>'" crossorigin="anonymous">
+                            </div>
+                            <div class="brand-text">
+                                <h1 class="brand-name">NTRIX IT SERVICES</h1>
+                                <div class="brand-tagline">Securing Your Space. Powering Your Tech.</div>
+                            </div>
+                        </div>
+
+                        <div class="quote-container">
+                            <div class="bracket-tl"></div>
+                            <div class="bracket-br"></div>
+                            <p class="quote-text ${fontClass}" id="quoteText-${reelCounter}">${quoteText}</p>
+                            <div class="quote-icons"><span>📹</span><span>💻</span></div>
+                        </div>
+
+                        <div class="actions-area" id="actionsArea-${reelCounter}">
+                            <div class="action-row">
+                                <button class="btn-share" onclick="shareCurrentQuote(this, ${reelCounter})" title="Share this Quote">
+                                    <span>📤</span> SHARE
+                                </button>
+                                <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query%20from%20the%20NTrix%20mug." class="btn-main" target="_blank">
+                                    GET A TECH QUOTE
+                                </a>
+                            </div>
+                            <div class="action-footer">Request consultation for business queries</div>
+                        </div>
+                    </div>
+
+                    <div class="side-panel coffee">
+                        <div class="graphic-display">
+                            <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png" alt="Coffee">
+                        </div>
+                        <h4 class="panel-title">COFFEE BENEFITS</h4>
+                        <div class="panel-sub">(Changes daily):</div>
+                        <ul class="benefit-list">${coffeeListHTML}</ul>
+                    </div>
+
+                    <div class="side-panel tea">
+                        <div class="graphic-display">
+                            <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png" alt="Tea">
+                        </div>
+                        <h4 class="panel-title">TEA BENEFITS</h4>
+                        <div class="panel-sub">(Changes daily):</div>
+                        <ul class="benefit-list">${teaListHTML}</ul>
+                    </div>
+
+                    <div class="water-section">
+                        <img src="https://img.icons8.com/color/48/water-bottle.png" alt="Water Bottle">
+                        <span><strong>REMINDER:</strong> Drink more water!</span>
+                    </div>
+                </div>
+            `;
         }
 
-        async function shareCurrentQuote() {
-            const shareBtn = document.getElementById('shareBtn');
+        // Load quotes into the DOM
+        function loadMoreReels(count = 3) {
+            const container = document.getElementById('reelsContainer');
+            for(let i=0; i<count; i++) {
+                if(currentQuoteIndex >= shuffledQuotes.length) {
+                    // Reshuffle and start over for an infinite loop
+                    shuffledQuotes.sort(() => 0.5 - Math.random());
+                    currentQuoteIndex = 0;
+                }
+                const quote = shuffledQuotes[currentQuoteIndex++];
+                
+                const section = document.createElement('div');
+                section.className = 'reel-section';
+                section.innerHTML = generateReelHTML(quote);
+                container.appendChild(section);
+            }
+        }
+
+        // Initialize App
+        window.onload = () => {
+            loadMoreReels(5); // Load first 5 reels immediately
+
+            const container = document.getElementById('reelsContainer');
+            const popup = document.getElementById('scrollPopup');
+
+            // Hide popup on first scroll
+            container.addEventListener('scroll', () => {
+                if(!popup.classList.contains('hidden')) {
+                    popup.classList.add('hidden');
+                }
+            }, { once: true });
+
+            // Infinite Scroll: Load more quotes when nearing the bottom
+            container.addEventListener('scroll', () => {
+                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 1000) {
+                    loadMoreReels(3);
+                }
+            });
+        };
+
+        // Updated Share function to target the specific Reel card
+        async function shareCurrentQuote(btnElement, idCounter) {
+            const shareBtn = btnElement;
             const originalBtnText = shareBtn.innerHTML;
             
             shareBtn.innerHTML = '<span>⏳</span> PREPARING...';
             
-            const cardElement = document.getElementById('cardToShare');
-            const actionsArea = document.getElementById('actionsArea');
+            const cardElement = document.getElementById(`cardToShare-${idCounter}`);
+            const actionsArea = document.getElementById(`actionsArea-${idCounter}`);
+            const currentQuote = document.getElementById(`quoteText-${idCounter}`).innerText;
             
             actionsArea.style.display = 'none';
 
@@ -536,8 +470,6 @@
                 canvas.toBlob(async (blob) => {
                     const file = new File([blob], 'NTrix-Quote.png', { type: 'image/png' });
                     
-                    const currentQuote = document.getElementById('kannadaQuote').innerText;
-                    // FIXED: Text now includes the live web URL in the WhatsApp message
                     const shareText = `"${currentQuote}"\n\nSecuring Your Space. Powering Your Tech.\n\n🌐 View more quotes here: ${window.location.href}`;
 
                     const shareData = {
@@ -565,8 +497,6 @@
                 shareBtn.innerHTML = originalBtnText;
             }
         }
-
-        window.onload = updateDailyContent;
     </script>
 </body>
 </html>
