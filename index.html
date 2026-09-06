@@ -84,7 +84,8 @@
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
         .panel-text-content { width: 100%; }
-        .panel-title { color: var(--gold-main); margin: 0; font-size: 0.9rem; font-weight: 700; text-transform: uppercase;}
+        /* Removed text-transform uppercase so Coffee Benefits/Tea Benefits capitalization stays exactly as typed */
+        .panel-title { color: var(--gold-main); margin: 0; font-size: 0.9rem; font-weight: 700; }
         .panel-sub { font-size: 0.75rem; color: var(--text-grey); margin-bottom: 8px; margin-top: 2px;}
 
         .benefit-list { list-style: none; padding: 0; margin: 0; font-size: 0.8rem; line-height: 1.4; color: #d1d5da; }
@@ -96,7 +97,6 @@
             border: 4px solid var(--gold-main); border-radius: 18px; padding: 20px; 
             display: flex; flex-direction: column; justify-content: space-between; 
             box-shadow: 0 0 25px var(--gold-glow); flex-grow: 1;
-            /* Animation properties for gradient */
             background-size: 200% 200% !important;
             animation: bgShift 8s ease infinite;
         }
@@ -258,28 +258,28 @@
             "ಗೌರವ ಸಿಗದ ಜಾಗದಲ್ಲಿ ಒಂದು ಕ್ಷಣನೂ ಇರ್ಬಾದು... ಯಾಕಂದ್ರೆ ಒಂಟಿಯಾಗಿರೋದು ಅವಮಾನ ಅಲ್ಲ, ಆದ್ರೆ ಬೆಲೆ ಇಲ್ಲದ ಕಡೆ ಇರೋದು ನಿಜವಾದ ಅವಮಾನ!"
         ];
 
-        // English Tips Arrays
+        // Kannada Tips Arrays for the dynamically changing content
         const itTips = [
-            ["Use strong, unique passwords.", "Enable Two-Factor Auth (2FA)."],
-            ["Update software regularly.", "Avoid clicking unknown links."],
-            ["Backup data to cloud/drive.", "Use a reliable Antivirus."],
-            ["Never share OTPs with anyone.", "Lock PC when stepping away."]
+            ["ಬಲವಾದ, ವಿಶಿಷ್ಟವಾದ ಪಾಸ್‌ವರ್ಡ್ ಬಳಸಿ.", "2FA ಭದ್ರತೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."],
+            ["ಸಾಫ್ಟ್‌ವೇರ್ ಅನ್ನು ನಿಯಮಿತವಾಗಿ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ.", "ಗೊತ್ತಿಲ್ಲದ ಲಿಂಕ್‌ಗಳನ್ನು ಕ್ಲಿಕ್ ಮಾಡಬೇಡಿ."],
+            ["ಡೇಟಾವನ್ನು ಕ್ಲೌಡ್‌ಗೆ ಬ್ಯಾಕಪ್ ಮಾಡಿ.", "ವಿಶ್ವಾಸಾರ್ಹ ಆಂಟಿವೈರಸ್ ಬಳಸಿ."],
+            ["OTP ಗಳನ್ನು ಯಾರೊಂದಿಗೂ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ.", "ಹೊರಗೆ ಹೋಗುವಾಗ PC ಲಾಕ್ ಮಾಡಿ."]
         ];
         const cctvTips = [
-            ["Clean camera lenses monthly.", "Check DVR/NVR storage weekly."],
-            ["Ensure cameras cover entry points.", "Use IR cameras for night vision."],
-            ["Secure DVR in a locked cabinet.", "Check UPS backup regularly."],
-            ["Adjust angles to avoid glare.", "Update firmware for security."]
+            ["ಕ್ಯಾಮೆರಾ ಲೆನ್ಸ್‌ಗಳನ್ನು ತಿಂಗಳಿಗೊಮ್ಮೆ ಸ್ವಚ್ಛಗೊಳಿಸಿ.", "ಡಿವಿಆರ್ ಸ್ಟೋರೇಜ್ ವಾರಕ್ಕೊಮ್ಮೆ ಪರಿಶೀಲಿಸಿ."],
+            ["ಪ್ರವೇಶ ದ್ವಾರಗಳನ್ನು ಕ್ಯಾಮೆರಾಗಳು ಕವರ್ ಮಾಡಲಿ.", "ರಾತ್ರಿ ದೃಷ್ಟಿಗಾಗಿ ಐಆರ್ ಕ್ಯಾಮೆರಾಗಳನ್ನು ಬಳಸಿ."],
+            ["ಲಾಕ್ ಮಾಡಿದ ಕ್ಯಾಬಿನೆಟ್‌ನಲ್ಲಿ ಡಿವಿಆರ್ ಇರಿಸಿ.", "ಯುಪಿಎಸ್ ಬ್ಯಾಕಪ್ ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಿ."],
+            ["ಹೊಳಪನ್ನು ತಪ್ಪಿಸಲು ಕೋನಗಳನ್ನು ಹೊಂದಿಸಿ.", "ಭದ್ರತೆಗಾಗಿ ಫರ್ಮ್‌ವೇರ್ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ."]
         ];
         const coffeeBenefits = [
-            ["Contains Antioxidants.", "Boosts Brain Power."],
-            ["Boosts Alertness.", "May Increase Metabolism."],
-            ["Increases Energy.", "Reduces Fatigue."]
+            ["ಆಂಟಿಆಕ್ಸಿಡೆಂಟ್‌ಗಳನ್ನು ಹೊಂದಿದೆ.", "ಮೆದುಳಿನ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ."],
+            ["ಎಚ್ಚರಿಕೆಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ.", "ಚಯಾಪಚಯವನ್ನು ಹೆಚ್ಚಿಸಬಹುದು."],
+            ["ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ.", "ಆಯಾಸವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ."]
         ];
         const teaBenefits = [
-            ["Lowers Blood Pressure.", "Improves Heart Health."],
-            ["Relaxes the Mind.", "Hydrates the Body."],
-            ["Protects Joints.", "Boosts Immunity."]
+            ["ಒತ್ತಡವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.", "ಹೃದಯದ ಆರೋಗ್ಯವನ್ನು ಸುಧಾರಿಸುತ್ತದೆ."],
+            ["ಮನಸ್ಸನ್ನು ಶಾಂತಗೊಳಿಸುತ್ತದೆ.", "ದೇಹವನ್ನು ಹೈಡ್ರೇಟ್ ಮಾಡುತ್ತದೆ."],
+            ["ಕೀಲುಗಳನ್ನು ರಕ್ಷಿಸುತ್ತದೆ.", "ರೋಗನಿರೋಧಕ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ."]
         ];
 
         // Dynamic Backgrounds Array (CSS Gradients)
@@ -346,25 +346,26 @@
             else if (quoteText.length > 120) fontClass = 'font-sm';
             else if (quoteText.length > 70) fontClass = 'font-md';
 
-            // Fully English Panels
+            // Desktop Left/Right Columns (Exact English Title formatting)
             const desktopLeft = `
                 <div class="side-col">
                     ${generatePanel("IT SECURITY TIPS", "(Daily Tip):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
-                    ${generatePanel("COFFEE BENEFITS", "(Changes Daily):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
+                    ${generatePanel("Coffee Benefits", "(Changes Daily):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
                 </div>
             `;
             const desktopRight = `
                 <div class="side-col">
-                    ${generatePanel("CCTV SAFETY TIPS", "(Daily Tip):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
-                    ${generatePanel("TEA BENEFITS", "(Changes Daily):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
+                    ${generatePanel("CCTV TIPS", "(Daily Tip):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
+                    ${generatePanel("Tea Benefits", "(Changes Daily):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
                 </div>
             `;
+            // Mobile Grid (Exact English Title formatting)
             const mobileGrid = `
                 <div class="mobile-panels-grid">
-                    ${generatePanel("IT SECURITY", "(Daily Tip):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
-                    ${generatePanel("CCTV SAFETY", "(Daily Tip):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
-                    ${generatePanel("COFFEE BENEFITS", "(Changes Daily):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
-                    ${generatePanel("TEA BENEFITS", "(Changes Daily):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
+                    ${generatePanel("IT SECURITY TIPS", "(Daily Tip):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
+                    ${generatePanel("CCTV TIPS", "(Daily Tip):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
+                    ${generatePanel("Coffee Benefits", "(Changes Daily):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
+                    ${generatePanel("Tea Benefits", "(Changes Daily):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
                 </div>
             `;
 
