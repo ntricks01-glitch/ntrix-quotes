@@ -44,7 +44,7 @@
             display: flex; justify-content: center; align-items: center; padding: 15px; box-sizing: border-box;
         }
 
-        /* === SCROLL POPUP ANIMATION === */
+        /* === SCROLL POPUP === */
         .scroll-popup {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.85);
             border: 2px solid var(--gold-main); color: white; padding: 20px 40px; border-radius: 50px; z-index: 1000;
@@ -59,16 +59,16 @@
         }
         .scroll-popup.hidden { opacity: 0; transform: translate(-50%, -60%); pointer-events: none; }
 
-        /* === NEW DESKTOP GRID === */
+        /* === DESKTOP GRID === */
         .ntrix-wrapper {
             width: 100%; max-width: 1300px; background-color: #12161c; border-radius: 25px; padding: 20px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: row; gap: 20px;
-            height: 100%; max-height: 900px;
+            height: 100%; max-height: 950px;
         }
 
         .side-col { display: flex; flex-direction: column; gap: 15px; width: 240px; flex-shrink: 0; }
-        .main-col { flex-grow: 1; display: flex; flex-direction: column; max-width: 100%; overflow: hidden;}
+        .main-col { flex-grow: 1; display: flex; flex-direction: column; max-width: 100%; height: 100%; overflow: hidden;}
 
         /* === SIDE PANELS === */
         .side-panel {
@@ -91,25 +91,33 @@
         .benefit-list li { margin-bottom: 5px; display: flex; align-items: flex-start;}
         .benefit-list li::before { content: '•'; color: var(--gold-main); margin-right: 6px; font-size: 1.1em;}
 
-        /* === CENTER CARD & QUOTES === */
+        /* === CENTER CARD & QUOTES (WITH DYNAMIC SHIFT ANIMATION) === */
         .center-card {
-            background: linear-gradient(145deg, #151b23, #0f1319); /* Default BG */
             border: 4px solid var(--gold-main); border-radius: 18px; padding: 20px; 
             display: flex; flex-direction: column; justify-content: space-between; 
-            box-shadow: 0 0 25px var(--gold-glow); height: 100%; flex-grow: 1; transition: background 0.5s ease;
+            box-shadow: 0 0 25px var(--gold-glow); flex-grow: 1;
+            /* Animation properties for gradient */
+            background-size: 200% 200% !important;
+            animation: bgShift 8s ease infinite;
+        }
+        
+        @keyframes bgShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .header-row { display: flex; flex-direction: column; align-items: center; margin-bottom: 10px; text-align: center; }
         .logo-box { height: 40px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px;}
         .logo-box img { height: 100%; width: auto; object-fit: contain; }
 
-        /* BRANDING UPDATES */
+        /* BRANDING UPDATES: FADED WHITE TAGLINE */
         .brand-name { font-family: 'Montserrat', sans-serif; color: var(--gold-main); font-size: 1.6rem; font-weight: 800; margin: 0; line-height: 1; }
         .brand-energy { color: #00ff00; font-size: 0.55em; vertical-align: middle; text-transform: uppercase; letter-spacing: 1px;}
-        .brand-tagline { color: var(--gold-main); font-size: 1.1rem; margin-top: 5px; font-weight: 800; background: rgba(255,204,0,0.1); padding: 4px 10px; border-radius: 20px; display: inline-block;}
+        .brand-tagline { color: rgba(255, 255, 255, 0.6); font-size: 1rem; margin-top: 5px; font-weight: 600; letter-spacing: 0.5px;}
 
         .quote-container {
-            flex-grow: 1; position: relative; padding: 20px; margin: 10px 0;
+            flex-grow: 1; position: relative; padding: 20px; margin: 5px 0;
             display: flex; justify-content: center; align-items: center; width: 100%; box-sizing: border-box;
         }
         .bracket-tl, .bracket-br { position: absolute; width: 40%; height: 40%; border: 2px solid var(--gold-main); }
@@ -119,8 +127,8 @@
         .quote-text { color: var(--text-white); font-family: 'Tiro Kannada', serif; text-align: center; margin: 0; line-height: 1.5; width: 100%; z-index: 2; }
         .font-xs { font-size: 1rem; } .font-sm { font-size: 1.25rem; } .font-md { font-size: 1.5rem; } .font-lg { font-size: 1.8rem; }
 
-        /* === BUTTONS & HEART ANIMATION === */
-        .actions-area { display: flex; flex-direction: column; width: 100%; gap: 10px; }
+        /* === LIKE/COMMENT/SHARE BUTTONS === */
+        .actions-area { display: flex; flex-direction: column; width: 100%; gap: 10px; margin-bottom: 5px; }
         .action-group-top { display: flex; justify-content: center; gap: 8px; width: 100%; }
 
         .btn-action {
@@ -141,13 +149,14 @@
             100% { transform: translateY(-60px) scale(1.5) rotate(15deg); opacity: 0; }
         }
 
-        /* GET A TECH QUOTE SECTION */
+        /* GET A TECH QUOTE SECTION (Moved to Bottom) */
+        .bottom-cta-area { display: flex; flex-direction: column; width: 100%; align-items: center; margin-top: 10px; }
         .btn-main { 
             background-color: var(--gold-main); color: #000000; border: none; padding: 12px 20px; 
             font-size: 1rem; text-decoration: none; box-shadow: 0 0 15px var(--gold-dim); width: 100%; 
             text-align: center; font-weight: bold; border-radius: 30px; display: flex; justify-content: center; align-items: center;
         }
-        .action-footer { text-align: center; font-size: 0.65rem; color: var(--text-grey); margin-top: -3px; margin-bottom: 5px; }
+        .action-footer { text-align: center; font-size: 0.65rem; color: var(--text-grey); margin-top: 5px; }
 
         .water-section { display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-grey); margin-top: 10px; }
         .water-section img { height: 20px; width: auto; animation: float 2s ease-in-out infinite alternate; }
@@ -163,49 +172,52 @@
         .comments-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px;}
         .comments-header h3 { margin: 0; color: var(--gold-main); }
         .close-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
-        .comments-list { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 10px; padding-right: 10px;}
-        .comment-item { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; }
-        .comment-user { font-weight: bold; font-size: 0.85rem; color: var(--gold-main); margin-bottom: 3px;}
-        .comment-text { font-size: 0.9rem; color: #ddd; margin: 0;}
+        .comments-list { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; padding-right: 5px;}
+        .comment-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; position: relative;}
+        .comment-user { font-weight: bold; font-size: 0.85rem; color: var(--gold-main); margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center;}
+        .reply-btn { background: none; border: none; color: var(--text-grey); font-size: 0.75rem; cursor: pointer; font-weight: bold;}
+        .reply-btn:hover { color: white; }
+        .comment-text { font-size: 0.9rem; color: #ddd; margin: 0; line-height: 1.4;}
         .comment-input-area { display: flex; gap: 10px; }
         .comment-input-area input { flex-grow: 1; padding: 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white; outline: none; }
         .comment-input-area button { background: var(--gold-main); color: black; border: none; padding: 0 20px; border-radius: 20px; font-weight: bold; cursor: pointer;}
 
-        /* === ALL-IN-ONE-PAGE MOBILE COMPRESSION === */
+        /* === ULTRA-COMPRESSED MOBILE LAYOUT (PREVENTS CROPPING) === */
         @media (max-width: 950px) {
-            .ntrix-wrapper { flex-direction: column; padding: 10px; gap: 8px; border-radius: 15px; }
-            .main-col { max-height: 62%; } 
+            .ntrix-wrapper { flex-direction: column; padding: 8px; gap: 6px; border-radius: 15px; max-height: 99vh;}
+            .main-col { flex-grow: 1; } 
             
             .side-col { display: none; }
             .mobile-panels-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; flex-shrink: 0; }
             
-            .center-card { padding: 12px; border-width: 2px; border-radius: 12px; }
-            .logo-box { height: 30px; margin-bottom: 2px;}
-            .brand-name { font-size: 1.3rem; }
-            .brand-tagline { font-size: 0.75rem; padding: 2px 8px; margin-top: 2px;}
+            .center-card { padding: 10px; border-width: 2px; border-radius: 12px; justify-content: center;}
+            .logo-box { height: 26px; margin-bottom: 2px;}
+            .brand-name { font-size: 1.15rem; }
+            .brand-tagline { font-size: 0.65rem; margin-top: 2px;}
             
-            .quote-container { padding: 15px 10px; margin: 2px 0; }
-            .bracket-tl, .bracket-br { width: 70%; height: 35%; border-width: 1px; }
+            .quote-container { padding: 8px; margin: 0; }
+            .bracket-tl, .bracket-br { width: 60%; height: 35%; border-width: 1px; }
             
-            .font-xs { font-size: 0.85rem; } .font-sm { font-size: 1rem; } .font-md { font-size: 1.15rem; } .font-lg { font-size: 1.4rem; }
+            .font-xs { font-size: 0.8rem; } .font-sm { font-size: 0.95rem; } .font-md { font-size: 1.15rem; } .font-lg { font-size: 1.4rem; }
             
-            /* Micro Panel Styling to fit everything */
-            .side-panel { padding: 6px; flex-direction: row; align-items: center; gap: 8px;}
-            .graphic-display { width: 35px; height: 35px; margin: 0; border: none; background: transparent;}
-            .graphic-display img { width: 25px; height: 25px; }
-            
-            .panel-title { font-size: 0.65rem; margin-bottom: 0px; }
-            .panel-sub { font-size: 0.55rem; margin-bottom: 3px; }
-            
-            .benefit-list { font-size: 0.55rem; line-height: 1.2; }
-            .benefit-list li { margin-bottom: 2px; }
-            
-            .btn-action { padding: 8px 0; font-size: 0.8rem; }
-            .btn-main { padding: 10px 15px; font-size: 0.9rem; }
-            .action-footer { font-size: 0.55rem; }
-            
-            .water-section { font-size: 0.75rem; margin-top: 2px; }
+            .actions-area { margin-bottom: 0; gap: 6px; }
             .action-group-top { gap: 6px; }
+            .btn-action { padding: 6px 0; font-size: 0.8rem; }
+            
+            .side-panel { padding: 4px; flex-direction: row; align-items: center; gap: 6px;}
+            .graphic-display { width: 28px; height: 28px; margin: 0; border: none; background: transparent;}
+            .graphic-display img { width: 20px; height: 20px; }
+            
+            .panel-title { font-size: 0.6rem; margin-bottom: 0px; }
+            .panel-sub { font-size: 0.5rem; margin-bottom: 2px; }
+            .benefit-list { font-size: 0.5rem; line-height: 1.15; }
+            .benefit-list li { margin-bottom: 1px; }
+            
+            .water-section { font-size: 0.7rem; margin-top: 4px; }
+            
+            .bottom-cta-area { margin-top: 4px; padding-bottom: 2px;}
+            .btn-main { padding: 8px 12px; font-size: 0.85rem; }
+            .action-footer { font-size: 0.55rem; margin-top: 3px; }
         }
         @media (min-width: 951px) { .mobile-panels-grid { display: none; } }
     </style>
@@ -246,52 +258,59 @@
             "ಗೌರವ ಸಿಗದ ಜಾಗದಲ್ಲಿ ಒಂದು ಕ್ಷಣನೂ ಇರ್ಬಾದು... ಯಾಕಂದ್ರೆ ಒಂಟಿಯಾಗಿರೋದು ಅವಮಾನ ಅಲ್ಲ, ಆದ್ರೆ ಬೆಲೆ ಇಲ್ಲದ ಕಡೆ ಇರೋದು ನಿಜವಾದ ಅವಮಾನ!"
         ];
 
-        // Translated IT and CCTV Tips
+        // English Tips Arrays
         const itTips = [
-            ["ಬಲವಾದ, ವಿಶಿಷ್ಟವಾದ ಪಾಸ್‌ವರ್ಡ್ ಬಳಸಿ.", "2FA ಭದ್ರತೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."],
-            ["ಸಾಫ್ಟ್‌ವೇರ್ ಅನ್ನು ನಿಯಮಿತವಾಗಿ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ.", "ಗೊತ್ತಿಲ್ಲದ ಲಿಂಕ್‌ಗಳನ್ನು ಕ್ಲಿಕ್ ಮಾಡಬೇಡಿ."],
-            ["ಡೇಟಾವನ್ನು ಕ್ಲೌಡ್‌ಗೆ ಬ್ಯಾಕಪ್ ಮಾಡಿ.", "ವಿಶ್ವಾಸಾರ್ಹ ಆಂಟಿವೈರಸ್ ಬಳಸಿ."],
-            ["OTP ಗಳನ್ನು ಯಾರೊಂದಿಗೂ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ.", "ಹೊರಗೆ ಹೋಗುವಾಗ PC ಲಾಕ್ ಮಾಡಿ."]
+            ["Use strong, unique passwords.", "Enable Two-Factor Auth (2FA)."],
+            ["Update software regularly.", "Avoid clicking unknown links."],
+            ["Backup data to cloud/drive.", "Use a reliable Antivirus."],
+            ["Never share OTPs with anyone.", "Lock PC when stepping away."]
         ];
         const cctvTips = [
-            ["ಕ್ಯಾಮೆರಾ ಲೆನ್ಸ್‌ಗಳನ್ನು ತಿಂಗಳಿಗೊಮ್ಮೆ ಸ್ವಚ್ಛಗೊಳಿಸಿ.", "ಡಿವಿಆರ್ ಸ್ಟೋರೇಜ್ ವಾರಕ್ಕೊಮ್ಮೆ ಪರಿಶೀಲಿಸಿ."],
-            ["ಪ್ರವೇಶ ದ್ವಾರಗಳನ್ನು ಕ್ಯಾಮೆರಾಗಳು ಕವರ್ ಮಾಡಲಿ.", "ರಾತ್ರಿ ದೃಷ್ಟಿಗಾಗಿ ಐಆರ್ ಕ್ಯಾಮೆರಾಗಳನ್ನು ಬಳಸಿ."],
-            ["ಲಾಕ್ ಮಾಡಿದ ಕ್ಯಾಬಿನೆಟ್‌ನಲ್ಲಿ ಡಿವಿಆರ್ ಇರಿಸಿ.", "ಯುಪಿಎಸ್ ಬ್ಯಾಕಪ್ ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಿ."],
-            ["ಹೊಳಪನ್ನು ತಪ್ಪಿಸಲು ಕೋನಗಳನ್ನು ಹೊಂದಿಸಿ.", "ಭದ್ರತೆಗಾಗಿ ಫರ್ಮ್‌ವೇರ್ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ."]
+            ["Clean camera lenses monthly.", "Check DVR/NVR storage weekly."],
+            ["Ensure cameras cover entry points.", "Use IR cameras for night vision."],
+            ["Secure DVR in a locked cabinet.", "Check UPS backup regularly."],
+            ["Adjust angles to avoid glare.", "Update firmware for security."]
         ];
         const coffeeBenefits = [
-            ["ಆಂಟಿಆಕ್ಸಿಡೆಂಟ್‌ಗಳನ್ನು ಹೊಂದಿದೆ.", "ಮೆದುಳಿನ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ."],
-            ["ಎಚ್ಚರಿಕೆಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ.", "ಚಯಾಪಚಯವನ್ನು ಹೆಚ್ಚಿಸಬಹುದು."],
-            ["ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ.", "ಆಯಾಸವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ."]
+            ["Contains Antioxidants.", "Boosts Brain Power."],
+            ["Boosts Alertness.", "May Increase Metabolism."],
+            ["Increases Energy.", "Reduces Fatigue."]
         ];
         const teaBenefits = [
-            ["ಒತ್ತಡವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.", "ಹೃದಯದ ಆರೋಗ್ಯವನ್ನು ಸುಧಾರಿಸುತ್ತದೆ."],
-            ["ಮನಸ್ಸನ್ನು ಶಾಂತಗೊಳಿಸುತ್ತದೆ.", "ದೇಹವನ್ನು ಹೈಡ್ರೇಟ್ ಮಾಡುತ್ತದೆ."],
-            ["ಕೀಲುಗಳನ್ನು ರಕ್ಷಿಸುತ್ತದೆ.", "ರೋಗನಿರೋಧಕ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ."]
+            ["Lowers Blood Pressure.", "Improves Heart Health."],
+            ["Relaxes the Mind.", "Hydrates the Body."],
+            ["Protects Joints.", "Boosts Immunity."]
         ];
 
-        // Dynamic Backgrounds for Center Card using background-image format for html2canvas compatibility
+        // Dynamic Backgrounds Array (CSS Gradients)
         const bgGradients = [
-            "linear-gradient(145deg, #151b23, #0f1319)", // Default Dark
-            "linear-gradient(145deg, #101914, #0a110d)", // Subtle Green
-            "linear-gradient(145deg, #131219, #0a0a11)", // Subtle Purple
-            "linear-gradient(145deg, #191410, #110c0a)", // Subtle Orange
-            "linear-gradient(145deg, #101519, #0a0e11)"  // Subtle Blue
+            "linear-gradient(135deg, #151b23, #0a0d12, #151b23)", // Default Dark
+            "linear-gradient(135deg, #101914, #050a07, #101914)", // Deep Green
+            "linear-gradient(135deg, #131219, #07070a, #131219)", // Deep Purple
+            "linear-gradient(135deg, #191410, #0a0705, #191410)", // Deep Orange
+            "linear-gradient(135deg, #101519, #05070a, #101519)"  // Deep Blue
         ];
 
         let shuffledQuotes = [...kannadaQuotes].sort(() => 0.5 - Math.random());
         let currentQuoteIndex = 0;
         let reelCounter = 0; 
-        
         const likedState = new Set();
-        const commentsDB = {};
+        
+        // --- Persistent Dynamic User Identity & Comments ---
+        let sessionUsername = localStorage.getItem('ntrix_username');
+        if (!sessionUsername) {
+            sessionUsername = "User_" + Math.floor(1000 + Math.random() * 9000);
+            localStorage.setItem('ntrix_username', sessionUsername);
+        }
+
+        // Load saved comments from local storage
+        let commentsDB = JSON.parse(localStorage.getItem('ntrix_comments')) || {};
 
         function getRandom2(arr) {
             const item = arr[Math.floor(Math.random() * arr.length)];
             return `<li>${item[0]}</li><li>${item[1]}</li>`;
         }
 
-        // Updated Generator with Subtitles
         function generatePanel(title, subtitle, listHTML, imgUrl) {
             return `
                 <div class="side-panel">
@@ -308,45 +327,44 @@
         function generateReelHTML(quoteText) {
             reelCounter++;
             
+            // Get original index of quote to link comments permanently to THIS quote
+            const originalQuoteId = kannadaQuotes.indexOf(quoteText);
+            if (!commentsDB[originalQuoteId]) {
+                commentsDB[originalQuoteId] = []; // Start with zero comments!
+            }
+            const commentCount = commentsDB[originalQuoteId].length;
+
             const itHTML = getRandom2(itTips);
             const cctvHTML = getRandom2(cctvTips);
             const coffeeHTML = getRandom2(coffeeBenefits);
             const teaHTML = getRandom2(teaBenefits);
             const randomBg = bgGradients[Math.floor(Math.random() * bgGradients.length)];
             const randomLikes = Math.floor(Math.random() * 450) + 50;
-            
-            commentsDB[reelCounter] = [
-                { user: "TechEnthusiast99", text: "Super true! Awesome quote." },
-                { user: "BusinessOwner", text: "Needed to hear this today. Thanks NTRIX!" }
-            ];
-            const commentCount = commentsDB[reelCounter].length;
 
             let fontClass = 'font-lg';
             if (quoteText.length > 250) fontClass = 'font-xs';
             else if (quoteText.length > 120) fontClass = 'font-sm';
             else if (quoteText.length > 70) fontClass = 'font-md';
 
-            // Desktop Left/Right Columns (With Subtitles added back)
+            // Fully English Panels
             const desktopLeft = `
                 <div class="side-col">
-                    ${generatePanel("ಐಟಿ ಭದ್ರತಾ ಸಲಹೆಗಳು", "(ದೈನಂದಿನ ಸಲಹೆ):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
-                    ${generatePanel("ಕಾಫಿಯ ಪ್ರಯೋಜನಗಳು", "(ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
+                    ${generatePanel("IT SECURITY TIPS", "(Daily Tip):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
+                    ${generatePanel("COFFEE BENEFITS", "(Changes Daily):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
                 </div>
             `;
             const desktopRight = `
                 <div class="side-col">
-                    ${generatePanel("ಸಿಸಿಟಿವಿ ಸುರಕ್ಷತಾ ಸಲಹೆಗಳು", "(ದೈನಂದಿನ ಸಲಹೆ):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
-                    ${generatePanel("ಚಹಾದ ಪ್ರಯೋಜನಗಳು", "(ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
+                    ${generatePanel("CCTV SAFETY TIPS", "(Daily Tip):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
+                    ${generatePanel("TEA BENEFITS", "(Changes Daily):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
                 </div>
             `;
-
-            // Mobile 2x2 Grid 
             const mobileGrid = `
                 <div class="mobile-panels-grid">
-                    ${generatePanel("ಐಟಿ ಭದ್ರತೆ", "(ದೈನಂದಿನ ಸಲಹೆ):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
-                    ${generatePanel("ಸಿಸಿಟಿವಿ ಸೇಫ್ಟಿ", "(ದೈನಂದಿನ ಸಲಹೆ):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
-                    ${generatePanel("ಕಾಫಿಯ ಪ್ರಯೋಜನಗಳು", "(ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
-                    ${generatePanel("ಚಹಾದ ಪ್ರಯೋಜನಗಳು", "(ಪ್ರತಿದಿನ ಬದಲಾಗುತ್ತದೆ):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
+                    ${generatePanel("IT SECURITY", "(Daily Tip):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
+                    ${generatePanel("CCTV SAFETY", "(Daily Tip):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
+                    ${generatePanel("COFFEE BENEFITS", "(Changes Daily):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
+                    ${generatePanel("TEA BENEFITS", "(Changes Daily):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
                 </div>
             `;
 
@@ -376,19 +394,13 @@
                                         <span class="icon" id="likeIcon-${reelCounter}">♡</span>
                                         <span id="likeCount-${reelCounter}">${randomLikes}</span>
                                     </button>
-                                    <button class="btn-action" onclick="openComments(${reelCounter})" title="Comment">
+                                    <button class="btn-action" onclick="openComments(${originalQuoteId}, ${reelCounter})" title="Comment">
                                         <span>💬</span> <span id="btnCommentCount-${reelCounter}">${commentCount}</span>
                                     </button>
                                     <button class="btn-action btn-share" onclick="shareCurrentQuote(this, ${reelCounter})" title="Share">
                                         <span>📤</span> SHARE
                                     </button>
                                 </div>
-                                
-                                <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query." class="btn-main" target="_blank">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="height: 22px; margin-right: 10px;" crossorigin="anonymous">
-                                    GET A TECH SERVICE
-                                </a>
-                                <div class="action-footer">Request consultation for business queries</div>
                             </div>
                         </div>
                     </div>
@@ -400,6 +412,15 @@
                         <img src="https://img.icons8.com/color/48/water-bottle.png" alt="Water Bottle" crossorigin="anonymous">
                         <span><strong>REMINDER:</strong> Drink more water!</span>
                     </div>
+
+                    <div class="bottom-cta-area">
+                        <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query." class="btn-main" target="_blank">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="height: 22px; margin-right: 10px;" crossorigin="anonymous">
+                            GET A TECH SERVICE
+                        </a>
+                        <div class="action-footer">Request consultation for business queries</div>
+                    </div>
+
                 </div>
             `;
         }
@@ -459,10 +480,13 @@
             }
         }
 
-        let currentCommentReelId = null;
+        // --- Persistent Comments Logic ---
+        let activeQuoteId = null; 
+        let activeReelCounter = null;
 
-        function openComments(id) {
-            currentCommentReelId = id;
+        function openComments(quoteId, reelId) {
+            activeQuoteId = quoteId;
+            activeReelCounter = reelId;
             document.getElementById('commentsModal').classList.add('active');
             renderComments();
         }
@@ -471,18 +495,30 @@
             document.getElementById('commentsModal').classList.remove('active');
         }
 
+        function replyTo(username) {
+            const input = document.getElementById('commentInput');
+            input.value = `@${username} `;
+            input.focus();
+        }
+
         function renderComments() {
             const list = document.getElementById('commentsList');
-            const arr = commentsDB[currentCommentReelId] || [];
+            const arr = commentsDB[activeQuoteId] || [];
             document.getElementById('modalCommentCount').innerText = arr.length;
             
-            list.innerHTML = arr.map(c => `
-                <div class="comment-item">
-                    <div class="comment-user">${c.user}</div>
-                    <div class="comment-text">${c.text}</div>
-                </div>
-            `).join('');
-            
+            if (arr.length === 0) {
+                list.innerHTML = `<div style="text-align:center; color:gray; margin-top: 20px;">Be the first to comment!</div>`;
+            } else {
+                list.innerHTML = arr.map(c => `
+                    <div class="comment-item">
+                        <div class="comment-user">
+                            ${c.user} 
+                            <button class="reply-btn" onclick="replyTo('${c.user}')">Reply</button>
+                        </div>
+                        <div class="comment-text">${c.text}</div>
+                    </div>
+                `).join('');
+            }
             list.scrollTop = list.scrollHeight;
         }
 
@@ -493,21 +529,24 @@
         function postComment() {
             const input = document.getElementById('commentInput');
             const text = input.value.trim();
-            if(!text || !currentCommentReelId) return;
+            if(!text || activeQuoteId === null) return;
 
-            commentsDB[currentCommentReelId].push({
-                user: "You (Guest)",
+            commentsDB[activeQuoteId].push({
+                user: sessionUsername,
                 text: text
             });
+            
+            // Save to browser immediately
+            localStorage.setItem('ntrix_comments', JSON.stringify(commentsDB));
             
             input.value = '';
             renderComments();
             
-            const btnCount = document.getElementById(`btnCommentCount-${currentCommentReelId}`);
-            if(btnCount) btnCount.innerText = commentsDB[currentCommentReelId].length;
+            // Update button count on the main page
+            const btnCount = document.getElementById(`btnCommentCount-${activeReelCounter}`);
+            if(btnCount) btnCount.innerText = commentsDB[activeQuoteId].length;
         }
 
-        // FIXED Share Button - Using standard Blob promise and handling gradients
         async function shareCurrentQuote(btnElement, idCounter) {
             const shareBtn = btnElement;
             const originalBtnText = shareBtn.innerHTML;
@@ -517,40 +556,33 @@
             const actionsArea = document.getElementById(`actionsArea-${idCounter}`);
             const currentQuote = document.getElementById(`quoteText-${idCounter}`).innerText;
             
-            // Hide buttons so they don't appear in the captured image
             actionsArea.style.display = 'none'; 
 
             try {
-                // Ensure html2canvas captures the gradient by leaving background null
                 const canvas = await html2canvas(cardElement, {
                     scale: 2, 
                     useCORS: true,
                     backgroundColor: null 
                 });
 
-                // Correctly resolve the image Blob asynchronously
                 const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
                 const file = new File([blob], 'NTrix-Quote.png', { type: 'image/png' });
                 
                 const shareText = `"${currentQuote}"\n\nPOWERED BY NTRIX IT SERVICES.\n🌐 More quotes: ${window.location.href}`;
                 const shareData = { title: 'NTRIX Energy', text: shareText, files: [file] };
 
-                // Open phone's native share menu
                 if (navigator.canShare && navigator.canShare(shareData)) {
                     await navigator.share(shareData);
                 } else {
-                    // Fallback to download if browser doesn't support Web Share API
                     const link = document.createElement('a');
                     link.download = 'NTrix-Quote.png';
                     link.href = canvas.toDataURL();
                     link.click();
                 }
-
             } catch (error) {
                 console.error("Capture Error:", error);
                 alert("Something went wrong capturing the image.");
             } finally {
-                // Restore buttons
                 actionsArea.style.display = 'flex';
                 shareBtn.innerHTML = originalBtnText;
             }
