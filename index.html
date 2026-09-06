@@ -24,10 +24,10 @@
             margin: 0;
             padding: 0;
             overflow: hidden; /* Absolutely prevent body scrolling */
+            background-color: var(--bg-page);
         }
 
         body {
-            background-color: var(--bg-page);
             color: var(--text-white);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             box-sizing: border-box;
@@ -38,7 +38,11 @@
         }
 
         .reels-container {
-            height: 100dvh; /* Uses dynamic viewport height for perfect mobile sizing */
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100vh; /* Fallback for older browsers */
+            height: 100dvh; /* Dynamic viewport height for modern mobile */
             width: 100vw;
             overflow-y: scroll;
             scroll-snap-type: y mandatory; 
@@ -50,6 +54,7 @@
         .reels-container { -ms-overflow-style: none; scrollbar-width: none; }
 
         .reel-section {
+            height: 100vh; /* Fallback */
             height: 100dvh;
             width: 100vw;
             scroll-snap-align: start; 
@@ -97,6 +102,7 @@
         .scroll-popup.hidden {
             opacity: 0;
             transform: translate(-50%, -60%);
+            pointer-events: none;
         }
 
         /* === EXISTING NTRIX STYLES === */
@@ -377,7 +383,7 @@
                     <div class="center-card" id="cardToShare-${reelCounter}">
                         <div class="header-row">
                             <div class="logo-box">
-                                <img src="Ntrix%20Logo.jpg" alt="NTrix Logo" onerror="this.outerHTML='<span style=\\'color:white; font-weight:bold; font-size: 16px;\\'>NTrix</span>'" crossorigin="anonymous">
+                                <img src="Ntrix%20Logo.jpg" alt="NTRIX" style="color: white; font-weight: bold; font-size: 1.2rem;" crossorigin="anonymous">
                             </div>
                             <div class="brand-text">
                                 <h1 class="brand-name">NTRIX IT SERVICES</h1>
@@ -436,6 +442,8 @@
 
         function loadMoreReels(count = 3) {
             const container = document.getElementById('reelsContainer');
+            if (!container) return;
+            
             for(let i=0; i<count; i++) {
                 if(currentQuoteIndex >= shuffledQuotes.length) {
                     shuffledQuotes.sort(() => 0.5 - Math.random());
@@ -450,24 +458,27 @@
             }
         }
 
-        window.onload = () => {
+        // LOAD INSTANTLY without waiting for external assets to finish downloading
+        document.addEventListener('DOMContentLoaded', () => {
             loadMoreReels(5);
 
             const container = document.getElementById('reelsContainer');
             const popup = document.getElementById('scrollPopup');
 
-            container.addEventListener('scroll', () => {
-                if(!popup.classList.contains('hidden')) {
-                    popup.classList.add('hidden');
-                }
-            }, { once: true });
+            if(container) {
+                container.addEventListener('scroll', () => {
+                    if(!popup.classList.contains('hidden')) {
+                        popup.classList.add('hidden');
+                    }
+                }, { once: true });
 
-            container.addEventListener('scroll', () => {
-                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 1000) {
-                    loadMoreReels(3);
-                }
-            });
-        };
+                container.addEventListener('scroll', () => {
+                    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 1000) {
+                        loadMoreReels(3);
+                    }
+                });
+            }
+        });
 
         // Handles the interactive Like Button
         function toggleLike(btn) {
@@ -493,6 +504,11 @@
             actionsArea.style.display = 'none';
 
             try {
+                if (typeof html2canvas === 'undefined') {
+                    alert("Sharing tool is still loading. Please try again in a few seconds.");
+                    return;
+                }
+                
                 const canvas = await html2canvas(cardElement, {
                     backgroundColor: '#151b23',
                     scale: 2,
