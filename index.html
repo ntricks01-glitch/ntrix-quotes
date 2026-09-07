@@ -206,4 +206,346 @@
             
             .bottom-cta-area { margin-top: 2px; padding-bottom: 2px;}
             .btn-main { padding: 8px 12px; font-size: 0.85rem; }
-            .
+            .action-footer { font-size: 0.55rem; margin-top: 2px; }
+        }
+        @media (min-width: 951px) { .mobile-panels-grid { display: none; } }
+    </style>
+</head>
+<body>
+
+    <div id="appContainer" class="app-container">
+        </div>
+
+    <div id="commentsModal" class="comments-modal">
+        <div class="comments-header">
+            <h3>💬 Comments (<span id="modalCommentCount">0</span>)</h3>
+            <button class="close-btn" onclick="closeComments()">×</button>
+        </div>
+        <div class="comments-list" id="commentsList">
+            </div>
+        <div class="comment-input-area">
+            <input type="text" id="commentInput" placeholder="Add a comment..." onkeypress="handleCommentEnter(event)">
+            <button onclick="postComment()">Post</button>
+        </div>
+    </div>
+
+    <script>
+        const kannadaQuotes = [
+            "ಗರುಡನಿಗೆ ಕಾಗೆ ಕಾಟ ಕೊಟ್ರೆ, ಗರುಡ ಯಾವತ್ತೂ ಕಾಗೆ ಜೊತೆ ಜಗಳ ಆಡ್ತಾ ಕೂರಲ್ಲ...  ಬದಲಾಗಿ ತನ್ನ ಹಾರಾಟದ ಎತ್ತರನ ಜಾಸ್ತಿ ಮಾಡುತ್ತೆ! ಎತ್ತರಕ್ಕೆ ಹೋದಾಗ ಉಸಿರುಗಟ್ಟಿ ಕಾಗೆ ತಾನಾಗೇ ಕೆಳಗೆ ಬೀಳುತ್ತೆ.",
+            "ರಸ್ತೆಯಲ್ಲಿ ಬೊಗಳೋ ಪ್ರತಿಯೊಂದು ನಾಯಿಗೂ ಕಲ್ಲು ಹೊಡಿತಾ ಕೂತ್ರೆ, ಅಂದುಕೊಂಡ ಜಾಗ ತಲುಪೋಕೆ ಆಗಲ್ಲ! ನಮ್ಮ ಬಗ್ಗೆ ಮಾತಾಡೋರಿಗೆ ಉತ್ತರ ಕೊಡ್ಬಾರ್ದು, ನಮ್ ಗೆಲುವೇ ಅವರ ಬಾಯಿಗೆ ಬೀಗ ಹಾಕುತ್ತೆ.",
+            "ರಾತ್ರಿ ಮಲಗೋವಾಗ ಜಗತ್ತನ್ನೇ ಆಳೋ ಕನಸು... ಆದ್ರೆ ಬೆಳಗ್ಗೆ ಎದ್ದಾಗ ಒಂದು ಸಣ್ಣ 'ಬ್ಲಾಂಕೆಟ್' ನ ಸೋಲಿಸೋ ತಾಕತ್ತಿಲ್ಲ! ಒಂದು ಬೆಡ್‌ಶೀಟ್ ಗೆ ಸೋತು ಮಲಗೋ ನೀವು, ನಾಳೆ ಪ್ರಪಂಚನ ಹೆಂಗೆ ಗೆಲ್ತೀರಾ?",
+            "ನಿಮ್ಮನ್ನ ಯಾರೂ ಗೌರವಿಸ್ತಾ ಇಲ್ವಾ? ಹಾಗಾದ್ರೆ ತಪ್ಪು ಅವರದ್ದಲ್ಲ, ನಿಮ್ಮದೇ! ಫುಟ್‌ಪಾತ್ ಮೇಲೆ ಇಟ್ಟಿರೋ ವಸ್ತುಗಳಿಗೆ ಮಾತ್ರ ಜನ ಚೌಕಾಸಿ ಮಾಡೋದು, ಬ್ರಾಂಡೆಡ್ ಶೋರೂಮ್ ಗಳಲ್ಲಿ ಅಲ್ಲ. ಸ್ಟ್ಯಾಂಡರ್ಡ್ ನ ಹೆಚ್ಚಿಸಿಕೊಳ್ಳಿ.",
+            "ಬರೀ ಟಾರ್ಗೆಟ್ ಮಾತ್ರವಲ್ಲ, ಕೆಲಸ ಮಾಡೋರ ನೆಮ್ಮದಿನೂ ಮುಖ್ಯ ಅಂತ ಅರ್ಥ ಮಾಡ್ಕೊಳ್ಳೋ ಮ್ಯಾನೇಜರ್ ಸಿಗೋದು ನಿಜಕ್ಕೂ ಅದೃಷ್ಟ... ಅಂತವರು ಬಾಸ್ ಆಗಿರಲ್ಲ, ಬೆನ್ನಿಗೆ ನಿಲ್ಲೋ ಲೀಡರ್ ಆಗಿರ್ತಾರೆ!",
+            "ಫೋನ್ ಬ್ಯಾಟರಿ ಖಾಲಿ ಆಗೋದು ಬ್ಯಾಕ್ಗ್ರೌಂಡ್ ಅಲ್ಲಿ ಓಡೋ ಬೇಡದ ಆಪ್ಸ್ ಇಂದ... ಹಾಗೇ ನಮ್ ಲೈಫ್ ನ ನೆಮ್ಮದಿ ಹಾಳಾಗೋದು ಕಷ್ಟಗಳಿಂದ ಅಲ್ಲ, ತಲೆಯಲ್ಲಿ ಓಡೋ ಬೇಡದ ಯೋಚನೆಗಳಿಂದ!",
+            "ನಿಮ್ಮ ಲೈಫ್ ನ 'Free WiFi' ತರ ಮಾಡ್ಕೋಬೇಡಿ, ಯಾರು ಬೇಕಾದ್ರೂ ಬಂದು use ಮಾಡ್ಕೊಂಡು ಹೋಗೋಕೆ... ನಿಮ್ಮ ಟೈಮ್ 'Private Hotspot' ತರ ಇರಲಿ, ಯೋಗ್ಯತೆ ಇರೋರಿಗೆ ಮಾತ್ರ Password ಕೊಡಿ!",
+            "ಎತ್ತರಕ್ಕೆ ಹಾರುವ ಹದ್ದಿಗೆ, ಕೆಳಗೆ ಕೂಗುವ ಕಾಗೆಗಳ ಪರಿವೆ ಇರಲ್ಲ... ದೊಡ್ಡ ಗುರಿ ಇರೋರು, ಸಣ್ಣ ಪುಟ್ಟ ಜನರ ಮಾತುಗಳಿಗೆ ಯಾವತ್ತೂ ತಲೆ ಕೆಡಿಸಿಕೊಳ್ಳಲ್ಲ!",
+            "ಬಿದ್ದ ಜಾಗದಲ್ಲೇ ಎದ್ದು ನಿಲ್ಲೋ ತಾಕತ್ತು ನಿಮ್ಮಲ್ಲಿದ್ದರೆ, ನಿಮ್ಮನ್ನು ಸೋಲಿಸೋಕೆ ಯಾರಿಂದಲೂ ಸಾಧ್ಯವಿಲ್ಲ! ಸೋಲನ್ನು ಗೆಲುವಿನ ಮೊದಲ ಮೆಟ್ಟಿಲು ಮಾಡಿಕೊಳ್ಳಿ.",
+            "ವಾದ ಮಾಡೋರು ವಾದ ಮಾಡ್ತಾನೇ ಇರ್ತಾರೆ, ಆದ್ರೆ ಗೆಲ್ಲೋರು ಯಾವತ್ತೂ ಸೈಲೆಂಟ್ ಆಗೇ ಇರ್ತಾರೆ! ಯಾಕಂದ್ರೆ ಮಾತಿಗಿಂತ ಕೃತಿ ದೊಡ್ಡದು.",
+            "ನಮ್ಮ ಬಗ್ಗೆ ಕೆಟ್ಟದಾಗಿ ಮಾತಾಡೋರನ್ನ ಯಾವತ್ತೂ ತಡ್ಯೋಕ್ ಹೋಗ್ಬೇಡಿ... ಯಾಕಂದ್ರೆ, ನಮ್ಮನ್ನ ಮುಟ್ಟೋ ಯೋಗ್ಯತೆ ಇಲ್ಲದವರು, ನಮ್ಮ ಬಗ್ಗೆ ಮಾತಾಡಿಯಾದ್ರೂ ಖುಷಿ ಪಡ್ಲಿ!",
+            "ಗೌರವ ಸಿಗದ ಜಾಗದಲ್ಲಿ ಒಂದು ಕ್ಷಣನೂ ಇರ್ಬಾದು... ಯಾಕಂದ್ರೆ ಒಂಟಿಯಾಗಿರೋದು ಅವಮಾನ ಅಲ್ಲ, ಆದ್ರೆ ಬೆಲೆ ಇಲ್ಲದ ಕಡೆ ಇರೋದು ನಿಜವಾದ ಅವಮಾನ!"
+        ];
+
+        // Kannada Tips Arrays for the dynamically changing content
+        const itTips = [
+            ["ಬಲವಾದ, ವಿಶಿಷ್ಟವಾದ ಪಾಸ್‌ವರ್ಡ್ ಬಳಸಿ.", "2FA ಭದ್ರತೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."],
+            ["ಸಾಫ್ಟ್‌ವೇರ್ ಅನ್ನು ನಿಯಮಿತವಾಗಿ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ.", "ಗೊತ್ತಿಲ್ಲದ ಲಿಂಕ್‌ಗಳನ್ನು ಕ್ಲಿಕ್ ಮಾಡಬೇಡಿ."],
+            ["ಡೇಟಾವನ್ನು ಕ್ಲೌಡ್‌ಗೆ ಬ್ಯಾಕಪ್ ಮಾಡಿ.", "ವಿಶ್ವಾಸಾರ್ಹ ಆಂಟಿವೈರಸ್ ಬಳಸಿ."],
+            ["OTP ಗಳನ್ನು ಯಾರೊಂದಿಗೂ ಹಂಚಿಕೊಳ್ಳಬೇಡಿ.", "ಹೊರಗೆ ಹೋಗುವಾಗ PC ಲಾಕ್ ಮಾಡಿ."]
+        ];
+        const cctvTips = [
+            ["ಕ್ಯಾಮೆರಾ ಲೆನ್ಸ್‌ಗಳನ್ನು ತಿಂಗಳಿಗೊಮ್ಮೆ ಸ್ವಚ್ಛಗೊಳಿಸಿ.", "ಡಿವಿಆರ್ ಸ್ಟೋರೇಜ್ ವಾರಕ್ಕೊಮ್ಮೆ ಪರಿಶೀಲಿಸಿ."],
+            ["ಪ್ರವೇಶ ದ್ವಾರಗಳನ್ನು ಕ್ಯಾಮೆರಾಗಳು ಕವರ್ ಮಾಡಲಿ.", "ರಾತ್ರಿ ದೃಷ್ಟಿಗಾಗಿ ಐಆರ್ ಕ್ಯಾಮೆರಾಗಳನ್ನು ಬಳಸಿ."],
+            ["ಲಾಕ್ ಮಾಡಿದ ಕ್ಯಾಬಿನೆಟ್‌ನಲ್ಲಿ ಡಿವಿಆರ್ ಇರಿಸಿ.", "ಯುಪಿಎಸ್ ಬ್ಯಾಕಪ್ ನಿಯಮಿತವಾಗಿ ಪರಿಶೀಲಿಸಿ."],
+            ["ಹೊಳಪನ್ನು ತಪ್ಪಿಸಲು ಕೋನಗಳನ್ನು ಹೊಂದಿಸಿ.", "ಭದ್ರತೆಗಾಗಿ ಫರ್ಮ್‌ವೇರ್ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ."]
+        ];
+        const coffeeBenefits = [
+            ["ಆಂಟಿಆಕ್ಸಿಡೆಂಟ್‌ಗಳನ್ನು ಹೊಂದಿದೆ.", "ಮೆದುಳಿನ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ."],
+            ["ಎಚ್ಚರಿಕೆಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ.", "ಚಯಾಪಚಯವನ್ನು ಹೆಚ್ಚಿಸಬಹುದು."],
+            ["ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ.", "ಆಯಾಸವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ."]
+        ];
+        const teaBenefits = [
+            ["ಒತ್ತಡವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.", "ಹೃದಯದ ಆರೋಗ್ಯವನ್ನು ಸುಧಾರಿಸುತ್ತದೆ."],
+            ["ಮನಸ್ಸನ್ನು ಶಾಂತಗೊಳಿಸುತ್ತದೆ.", "ದೇಹವನ್ನು ಹೈಡ್ರೇಟ್ ಮಾಡುತ್ತದೆ."],
+            ["ಕೀಲುಗಳನ್ನು ರಕ್ಷಿಸುತ್ತದೆ.", "ರೋಗನಿರೋಧಕ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ."]
+        ];
+
+        // Dynamic Backgrounds Array (CSS Gradients)
+        const bgGradients = [
+            "linear-gradient(135deg, #151b23, #0a0d12, #151b23)", 
+            "linear-gradient(135deg, #101914, #050a07, #101914)", 
+            "linear-gradient(135deg, #131219, #07070a, #131219)", 
+            "linear-gradient(135deg, #191410, #0a0705, #191410)", 
+            "linear-gradient(135deg, #101519, #05070a, #101519)"  
+        ];
+
+        let reelCounter = 0; 
+        const likedState = new Set();
+        
+        // --- Persistent Dynamic User Identity & Comments ---
+        let sessionUsername = localStorage.getItem('ntrix_username');
+        if (!sessionUsername) {
+            sessionUsername = "User_" + Math.floor(1000 + Math.random() * 9000);
+            localStorage.setItem('ntrix_username', sessionUsername);
+        }
+
+        let commentsDB = JSON.parse(localStorage.getItem('ntrix_comments')) || {};
+
+        function getRandom2(arr) {
+            const item = arr[Math.floor(Math.random() * arr.length)];
+            return `<li>${item[0]}</li><li>${item[1]}</li>`;
+        }
+
+        function generatePanel(title, subtitle, listHTML, imgUrl) {
+            return `
+                <div class="side-panel">
+                    <div class="graphic-display"><img src="${imgUrl}" alt="Icon" crossorigin="anonymous"></div>
+                    <div class="panel-text-content">
+                        <div class="panel-title">${title}</div>
+                        <div class="panel-sub">${subtitle}</div>
+                        <ul class="benefit-list">${listHTML}</ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateStaticHTML(quoteText) {
+            reelCounter = 1; // Since there is only one quote on the page now
+            
+            const originalQuoteId = kannadaQuotes.indexOf(quoteText);
+            if (!commentsDB[originalQuoteId]) {
+                commentsDB[originalQuoteId] = []; 
+            }
+            const commentCount = commentsDB[originalQuoteId].length;
+
+            const itHTML = getRandom2(itTips);
+            const cctvHTML = getRandom2(cctvTips);
+            const coffeeHTML = getRandom2(coffeeBenefits);
+            const teaHTML = getRandom2(teaBenefits);
+            const randomBg = bgGradients[Math.floor(Math.random() * bgGradients.length)];
+            const randomLikes = Math.floor(Math.random() * 450) + 50;
+
+            let fontClass = 'font-lg';
+            if (quoteText.length > 250) fontClass = 'font-xs';
+            else if (quoteText.length > 120) fontClass = 'font-sm';
+            else if (quoteText.length > 70) fontClass = 'font-md';
+
+            // Exact English Title formatting
+            const desktopLeft = `
+                <div class="side-col">
+                    ${generatePanel("IT SECURITY TIPS", "(Daily Tip):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
+                    ${generatePanel("Coffee Benefits", "(Changes Daily):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
+                </div>
+            `;
+            const desktopRight = `
+                <div class="side-col">
+                    ${generatePanel("CCTV TIPS", "(Daily Tip):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
+                    ${generatePanel("Tea Benefits", "(Changes Daily):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
+                </div>
+            `;
+            const mobileGrid = `
+                <div class="mobile-panels-grid">
+                    ${generatePanel("IT SECURITY TIPS", "(Daily Tip):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
+                    ${generatePanel("CCTV TIPS", "(Daily Tip):", cctvHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Video%20Camera.png")}
+                    ${generatePanel("Coffee Benefits", "(Changes Daily):", coffeeHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Hot%20Beverage.png")}
+                    ${generatePanel("Tea Benefits", "(Changes Daily):", teaHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Food/Teacup%20Without%20Handle.png")}
+                </div>
+            `;
+
+            return `
+                <div class="ntrix-wrapper">
+                    ${desktopLeft}
+                    
+                    <div class="main-col">
+                        <div class="center-card" id="cardToShare-${reelCounter}" style="background-image: ${randomBg};">
+                            
+                            <div class="header-row">
+                                <div class="logo-box">
+                                    <img src="Ntrix%20Logo.jpg" alt="NTRIX" style="color: white; font-weight: bold; font-size: 1.2rem;" crossorigin="anonymous">
+                                </div>
+                                <h1 class="brand-name">NTRIX <span class="brand-energy">Energy</span></h1>
+                                <div class="brand-tagline">POWERED BY NTRIX IT SERVICES</div>
+                            </div>
+
+                            <div class="quote-container">
+                                <div class="bracket-tl"></div><div class="bracket-br"></div>
+                                <p class="quote-text ${fontClass}" id="quoteText-${reelCounter}">${quoteText}</p>
+                            </div>
+
+                            <div class="actions-area" id="actionsArea-${reelCounter}">
+                                <div class="action-group-top">
+                                    <button class="btn-action btn-like" id="likeBtn-${reelCounter}" onclick="toggleLike(this, ${reelCounter}, ${randomLikes})" title="Like">
+                                        <span class="icon" id="likeIcon-${reelCounter}">♡</span>
+                                        <span id="likeCount-${reelCounter}">${randomLikes}</span>
+                                    </button>
+                                    <button class="btn-action" onclick="openComments(${originalQuoteId}, ${reelCounter})" title="Comment">
+                                        <span>💬</span> <span id="btnCommentCount-${reelCounter}">${commentCount}</span>
+                                    </button>
+                                    <button class="btn-action btn-share" onclick="shareCurrentQuote(this, ${reelCounter})" title="Share">
+                                        <span>📤</span> SHARE
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${desktopRight}
+                    ${mobileGrid}
+                    
+                    <div class="water-section" style="width: 100%;">
+                        <img src="https://img.icons8.com/color/48/water-bottle.png" alt="Water Bottle" crossorigin="anonymous">
+                        <span><strong>REMINDER:</strong> Drink more water!</span>
+                    </div>
+
+                    <div class="bottom-cta-area">
+                        <a href="https://wa.me/919742248550?text=Hi%20Nagendra,%20I%20have%20a%20business%20IT/CCTV%20service%20query." class="btn-main" target="_blank">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" style="height: 22px; margin-right: 10px;" crossorigin="anonymous">
+                            GET A TECH SERVICE
+                        </a>
+                        <div class="action-footer">Request consultation for business queries</div>
+                    </div>
+
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('appContainer');
+            // Pick a single random quote on page load
+            const randomQuote = kannadaQuotes[Math.floor(Math.random() * kannadaQuotes.length)];
+            container.innerHTML = generateStaticHTML(randomQuote);
+        });
+
+        function toggleLike(btnElement, id, baseCount) {
+            const icon = document.getElementById(`likeIcon-${id}`);
+            const countDisplay = document.getElementById(`likeCount-${id}`);
+
+            if (likedState.has(id)) {
+                likedState.delete(id);
+                btnElement.classList.remove('liked');
+                icon.innerHTML = '♡'; 
+                countDisplay.innerText = baseCount; 
+            } else {
+                likedState.add(id);
+                btnElement.classList.add('liked');
+                icon.innerHTML = '❤️'; 
+                countDisplay.innerText = baseCount + 1; 
+                
+                for(let i=0; i<5; i++){
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.className = 'floating-heart';
+                    heart.style.left = (20 + Math.random() * 60) + '%';
+                    btnElement.appendChild(heart);
+                    setTimeout(() => heart.remove(), 1000);
+                }
+            }
+        }
+
+        // --- Persistent Comments Logic ---
+        let activeQuoteId = null; 
+        let activeReelCounter = null;
+
+        function openComments(quoteId, reelId) {
+            activeQuoteId = quoteId;
+            activeReelCounter = reelId;
+            document.getElementById('commentsModal').classList.add('active');
+            renderComments();
+        }
+
+        function closeComments() {
+            document.getElementById('commentsModal').classList.remove('active');
+        }
+
+        function replyTo(username) {
+            const input = document.getElementById('commentInput');
+            input.value = `@${username} `;
+            input.focus();
+        }
+
+        function renderComments() {
+            const list = document.getElementById('commentsList');
+            const arr = commentsDB[activeQuoteId] || [];
+            document.getElementById('modalCommentCount').innerText = arr.length;
+            
+            if (arr.length === 0) {
+                list.innerHTML = `<div style="text-align:center; color:gray; margin-top: 20px;">Be the first to comment!</div>`;
+            } else {
+                list.innerHTML = arr.map(c => `
+                    <div class="comment-item">
+                        <div class="comment-user">
+                            ${c.user} 
+                            <button class="reply-btn" onclick="replyTo('${c.user}')">Reply</button>
+                        </div>
+                        <div class="comment-text">${c.text}</div>
+                    </div>
+                `).join('');
+            }
+            list.scrollTop = list.scrollHeight;
+        }
+
+        function handleCommentEnter(e) {
+            if (e.key === 'Enter') postComment();
+        }
+
+        function postComment() {
+            const input = document.getElementById('commentInput');
+            const text = input.value.trim();
+            if(!text || activeQuoteId === null) return;
+
+            commentsDB[activeQuoteId].push({
+                user: sessionUsername,
+                text: text
+            });
+            
+            localStorage.setItem('ntrix_comments', JSON.stringify(commentsDB));
+            
+            input.value = '';
+            renderComments();
+            
+            const btnCount = document.getElementById(`btnCommentCount-${activeReelCounter}`);
+            if(btnCount) btnCount.innerText = commentsDB[activeQuoteId].length;
+        }
+
+        async function shareCurrentQuote(btnElement, idCounter) {
+            const shareBtn = btnElement;
+            const originalBtnText = shareBtn.innerHTML;
+            shareBtn.innerHTML = '<span>⏳</span>...';
+            
+            const cardElement = document.getElementById(`cardToShare-${idCounter}`);
+            const actionsArea = document.getElementById(`actionsArea-${idCounter}`);
+            const currentQuote = document.getElementById(`quoteText-${idCounter}`).innerText;
+            
+            actionsArea.style.display = 'none'; 
+
+            try {
+                const canvas = await html2canvas(cardElement, {
+                    scale: 2, 
+                    useCORS: true,
+                    backgroundColor: null 
+                });
+
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                const file = new File([blob], 'NTrix-Quote.png', { type: 'image/png' });
+                
+                const shareText = `"${currentQuote}"\n\nPOWERED BY NTRIX IT SERVICES.\n🌐 More quotes: ${window.location.href}`;
+                const shareData = { title: 'NTRIX Energy', text: shareText, files: [file] };
+
+                if (navigator.canShare && navigator.canShare(shareData)) {
+                    await navigator.share(shareData);
+                } else {
+                    const link = document.createElement('a');
+                    link.download = 'NTrix-Quote.png';
+                    link.href = canvas.toDataURL();
+                    link.click();
+                }
+            } catch (error) {
+                console.error("Capture Error:", error);
+                alert("Something went wrong capturing the image.");
+            } finally {
+                actionsArea.style.display = 'flex';
+                shareBtn.innerHTML = originalBtnText;
+            }
+        }
+    </script>
+</body>
+</html>
