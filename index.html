@@ -18,9 +18,11 @@
             --heart-red: #ff4d4d;
         }
 
-        /* === STATIC PAGE SETUP === */
+        /* === STATIC PAGE SETUP (FIXED PULL-TO-REFRESH) === */
         html, body {
-            height: 100%; margin: 0; padding: 0; overflow: hidden; background-color: var(--bg-page);
+            min-height: 100%; margin: 0; padding: 0; 
+            background-color: var(--bg-page);
+            overflow-x: hidden; /* Only hides horizontal overflow, allows vertical pull-to-refresh */
         }
 
         body {
@@ -31,7 +33,7 @@
         }
 
         .app-container {
-            position: absolute; top: 0; left: 0; height: 100vh; height: 100dvh; width: 100vw;
+            width: 100vw; min-height: 100vh; min-height: 100dvh;
             display: flex; justify-content: center; align-items: center; padding: 15px; box-sizing: border-box;
         }
 
@@ -40,7 +42,7 @@
             width: 100%; max-width: 1300px; background-color: #12161c; border-radius: 25px; padding: 20px;
             box-shadow: 0 15px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: row; gap: 20px;
-            height: 100%; max-height: 950px;
+            height: 100%; 
         }
 
         .side-col { display: flex; flex-direction: column; gap: 15px; width: 240px; flex-shrink: 0; }
@@ -129,7 +131,7 @@
             100% { transform: translateY(-60px) scale(1.5) rotate(15deg); opacity: 0; }
         }
 
-        /* GET A TECH QUOTE SECTION (Moved to Bottom) */
+        /* GET A TECH QUOTE SECTION */
         .bottom-cta-area { display: flex; flex-direction: column; width: 100%; align-items: center; margin-top: 10px; }
         .btn-main { 
             background-color: var(--gold-main); color: #000000; border: none; padding: 12px 20px; 
@@ -162,15 +164,14 @@
         .comment-input-area input { flex-grow: 1; padding: 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white; outline: none; }
         .comment-input-area button { background: var(--gold-main); color: black; border: none; padding: 0 20px; border-radius: 20px; font-weight: bold; cursor: pointer;}
 
-        /* === ULTRA-COMPRESSED MOBILE LAYOUT (INCREASED PANEL TEXT) === */
+        /* === ULTRA-COMPRESSED MOBILE LAYOUT === */
         @media (max-width: 950px) {
-            .ntrix-wrapper { flex-direction: column; padding: 8px; gap: 5px; border-radius: 15px; max-height: 99vh;}
+            .ntrix-wrapper { flex-direction: column; padding: 8px; gap: 5px; border-radius: 15px; }
             .main-col { flex-grow: 1; min-height: 0; } 
             
             .side-col { display: none; }
             .mobile-panels-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; width: 100%; flex-shrink: 0; }
             
-            /* Center Quote Box tweaked to make room for panels */
             .center-card { padding: 8px 10px; border-width: 2px; border-radius: 12px; justify-content: space-evenly;}
             .logo-box { height: 26px; margin-bottom: 2px;}
             .brand-name { font-size: 1.15rem; }
@@ -179,7 +180,6 @@
             .quote-container { padding: 5px; margin: 0; }
             .bracket-tl, .bracket-br { width: 50%; height: 30%; border-width: 1px; }
             
-            /* Reduced quote text size slightly to prevent overflow */
             .font-xs { font-size: 0.8rem; } 
             .font-sm { font-size: 0.9rem; } 
             .font-md { font-size: 1.05rem; } 
@@ -189,19 +189,17 @@
             .action-group-top { gap: 5px; }
             .btn-action { padding: 6px 0; font-size: 0.85rem; }
             
-            /* === MICRO PANELS (INCREASED FONT SIZES) === */
             .side-panel { padding: 6px 8px; flex-direction: row; align-items: flex-start; gap: 8px;}
             .graphic-display { width: 32px; height: 32px; margin: 0; border: none; background: transparent; flex-shrink: 0;}
             .graphic-display img { width: 24px; height: 24px; }
             
             .panel-text-content { display: flex; flex-direction: column; justify-content: center; }
             
-            .panel-title { font-size: 0.75rem; margin-bottom: 1px; } /* Increased */
-            .panel-sub { font-size: 0.65rem; margin-bottom: 3px; } /* Increased */
-            .benefit-list { font-size: 0.68rem; line-height: 1.25; } /* Increased */
+            .panel-title { font-size: 0.75rem; margin-bottom: 1px; } 
+            .panel-sub { font-size: 0.65rem; margin-bottom: 3px; } 
+            .benefit-list { font-size: 0.68rem; line-height: 1.25; } 
             .benefit-list li { margin-bottom: 2px; }
             
-            /* Bottom CTA Section */
             .water-section { font-size: 0.75rem; margin-top: 2px; }
             
             .bottom-cta-area { margin-top: 2px; padding-bottom: 2px;}
@@ -245,7 +243,6 @@
             "ಗೌರವ ಸಿಗದ ಜಾಗದಲ್ಲಿ ಒಂದು ಕ್ಷಣನೂ ಇರ್ಬಾದು... ಯಾಕಂದ್ರೆ ಒಂಟಿಯಾಗಿರೋದು ಅವಮಾನ ಅಲ್ಲ, ಆದ್ರೆ ಬೆಲೆ ಇಲ್ಲದ ಕಡೆ ಇರೋದು ನಿಜವಾದ ಅವಮಾನ!"
         ];
 
-        // Kannada Tips Arrays for the dynamically changing content
         const itTips = [
             ["ಬಲವಾದ, ವಿಶಿಷ್ಟವಾದ ಪಾಸ್‌ವರ್ಡ್ ಬಳಸಿ.", "2FA ಭದ್ರತೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."],
             ["ಸಾಫ್ಟ್‌ವೇರ್ ಅನ್ನು ನಿಯಮಿತವಾಗಿ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ.", "ಗೊತ್ತಿಲ್ಲದ ಲಿಂಕ್‌ಗಳನ್ನು ಕ್ಲಿಕ್ ಮಾಡಬೇಡಿ."],
@@ -269,26 +266,34 @@
             ["ಕೀಲುಗಳನ್ನು ರಕ್ಷಿಸುತ್ತದೆ.", "ರೋಗನಿರೋಧಕ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ."]
         ];
 
-        // Dynamic Backgrounds Array (CSS Gradients)
         const bgGradients = [
-            "linear-gradient(135deg, #151b23, #0a0d12, #151b23)", // Default Dark
-            "linear-gradient(135deg, #101914, #050a07, #101914)", // Deep Green
-            "linear-gradient(135deg, #131219, #07070a, #131219)", // Deep Purple
-            "linear-gradient(135deg, #191410, #0a0705, #191410)", // Deep Orange
-            "linear-gradient(135deg, #101519, #05070a, #101519)"  // Deep Blue
+            "linear-gradient(135deg, #151b23, #0a0d12, #151b23)", 
+            "linear-gradient(135deg, #101914, #050a07, #101914)", 
+            "linear-gradient(135deg, #131219, #07070a, #131219)", 
+            "linear-gradient(135deg, #191410, #0a0705, #191410)", 
+            "linear-gradient(135deg, #101519, #05070a, #101519)"  
         ];
 
-        let reelCounter = 0; 
+        let currentQuoteId = null;
         const likedState = new Set();
         
-        // --- Persistent Dynamic User Identity & Comments ---
-        let sessionUsername = localStorage.getItem('ntrix_username');
-        if (!sessionUsername) {
-            sessionUsername = "User_" + Math.floor(1000 + Math.random() * 9000);
-            localStorage.setItem('ntrix_username', sessionUsername);
-        }
+        let sessionUsername = "User_" + Math.floor(1000 + Math.random() * 9000);
+        let commentsDB = {};
 
-        let commentsDB = JSON.parse(localStorage.getItem('ntrix_comments')) || {};
+        try {
+            if (localStorage.getItem('ntrix_username')) {
+                sessionUsername = localStorage.getItem('ntrix_username');
+            } else {
+                localStorage.setItem('ntrix_username', sessionUsername);
+            }
+            
+            let savedComments = localStorage.getItem('ntrix_comments');
+            if (savedComments) {
+                commentsDB = JSON.parse(savedComments);
+            }
+        } catch (e) {
+            console.warn("Local storage disabled.");
+        }
 
         function getRandom2(arr) {
             const item = arr[Math.floor(Math.random() * arr.length)];
@@ -308,14 +313,13 @@
             `;
         }
 
-        function generateReelHTML(quoteText) {
-            reelCounter++;
+        function generateStaticHTML(quoteText) {
+            currentQuoteId = kannadaQuotes.indexOf(quoteText);
             
-            const originalQuoteId = kannadaQuotes.indexOf(quoteText);
-            if (!commentsDB[originalQuoteId]) {
-                commentsDB[originalQuoteId] = []; 
+            if (!commentsDB[currentQuoteId]) {
+                commentsDB[currentQuoteId] = []; 
             }
-            const commentCount = commentsDB[originalQuoteId].length;
+            const commentCount = commentsDB[currentQuoteId].length;
 
             const itHTML = getRandom2(itTips);
             const cctvHTML = getRandom2(cctvTips);
@@ -329,7 +333,6 @@
             else if (quoteText.length > 120) fontClass = 'font-sm';
             else if (quoteText.length > 70) fontClass = 'font-md';
 
-            // Exact English Title formatting
             const desktopLeft = `
                 <div class="side-col">
                     ${generatePanel("IT SECURITY TIPS", "(Daily Tip):", itHTML, "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Shield.png")}
@@ -356,7 +359,7 @@
                     ${desktopLeft}
                     
                     <div class="main-col">
-                        <div class="center-card" id="cardToShare-${reelCounter}" style="background-image: ${randomBg};">
+                        <div class="center-card" id="cardToShare" style="background-image: ${randomBg};">
                             
                             <div class="header-row">
                                 <div class="logo-box">
@@ -368,19 +371,19 @@
 
                             <div class="quote-container">
                                 <div class="bracket-tl"></div><div class="bracket-br"></div>
-                                <p class="quote-text ${fontClass}" id="quoteText-${reelCounter}">${quoteText}</p>
+                                <p class="quote-text ${fontClass}">${quoteText}</p>
                             </div>
 
-                            <div class="actions-area" id="actionsArea-${reelCounter}">
+                            <div class="actions-area" id="actionsArea">
                                 <div class="action-group-top">
-                                    <button class="btn-action btn-like" id="likeBtn-${reelCounter}" onclick="toggleLike(this, ${reelCounter}, ${randomLikes})" title="Like">
-                                        <span class="icon" id="likeIcon-${reelCounter}">♡</span>
-                                        <span id="likeCount-${reelCounter}">${randomLikes}</span>
+                                    <button class="btn-action btn-like" id="likeBtn" onclick="toggleLike(this, ${randomLikes})" title="Like">
+                                        <span class="icon" id="likeIcon">♡</span>
+                                        <span id="likeCount">${randomLikes}</span>
                                     </button>
-                                    <button class="btn-action" onclick="openComments(${originalQuoteId}, ${reelCounter})" title="Comment">
-                                        <span>💬</span> <span id="btnCommentCount-${reelCounter}">${commentCount}</span>
+                                    <button class="btn-action" onclick="openComments()" title="Comment">
+                                        <span>💬</span> <span id="btnCommentCount">${commentCount}</span>
                                     </button>
-                                    <button class="btn-action btn-share" onclick="shareCurrentQuote(this, ${reelCounter})" title="Share">
+                                    <button class="btn-action btn-share" onclick="shareCurrentQuote(this)" title="Share">
                                         <span>📤</span> SHARE
                                     </button>
                                 </div>
@@ -410,24 +413,21 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('appContainer');
-            if(container) {
-                // Generate and inject exactly ONE random quote on page load
-                const randomQuote = kannadaQuotes[Math.floor(Math.random() * kannadaQuotes.length)];
-                container.innerHTML = generateReelHTML(randomQuote);
-            }
+            const randomQuote = kannadaQuotes[Math.floor(Math.random() * kannadaQuotes.length)];
+            container.innerHTML = generateStaticHTML(randomQuote);
         });
 
-        function toggleLike(btnElement, id, baseCount) {
-            const icon = document.getElementById(`likeIcon-${id}`);
-            const countDisplay = document.getElementById(`likeCount-${id}`);
+        function toggleLike(btnElement, baseCount) {
+            const icon = document.getElementById(`likeIcon`);
+            const countDisplay = document.getElementById(`likeCount`);
 
-            if (likedState.has(id)) {
-                likedState.delete(id);
+            if (likedState.has(currentQuoteId)) {
+                likedState.delete(currentQuoteId);
                 btnElement.classList.remove('liked');
                 icon.innerHTML = '♡'; 
                 countDisplay.innerText = baseCount; 
             } else {
-                likedState.add(id);
+                likedState.add(currentQuoteId);
                 btnElement.classList.add('liked');
                 icon.innerHTML = '❤️'; 
                 countDisplay.innerText = baseCount + 1; 
@@ -443,13 +443,7 @@
             }
         }
 
-        // --- Persistent Comments Logic ---
-        let activeQuoteId = null; 
-        let activeReelCounter = null;
-
-        function openComments(quoteId, reelId) {
-            activeQuoteId = quoteId;
-            activeReelCounter = reelId;
+        function openComments() {
             document.getElementById('commentsModal').classList.add('active');
             renderComments();
         }
@@ -466,7 +460,7 @@
 
         function renderComments() {
             const list = document.getElementById('commentsList');
-            const arr = commentsDB[activeQuoteId] || [];
+            const arr = commentsDB[currentQuoteId] || [];
             document.getElementById('modalCommentCount').innerText = arr.length;
             
             if (arr.length === 0) {
@@ -492,32 +486,32 @@
         function postComment() {
             const input = document.getElementById('commentInput');
             const text = input.value.trim();
-            if(!text || activeQuoteId === null) return;
+            if(!text || currentQuoteId === null) return;
 
-            commentsDB[activeQuoteId].push({
+            commentsDB[currentQuoteId].push({
                 user: sessionUsername,
                 text: text
             });
             
-            // Save to browser immediately
-            localStorage.setItem('ntrix_comments', JSON.stringify(commentsDB));
+            try {
+                localStorage.setItem('ntrix_comments', JSON.stringify(commentsDB));
+            } catch(e) {}
             
             input.value = '';
             renderComments();
             
-            // Update button count on the main page
-            const btnCount = document.getElementById(`btnCommentCount-${activeReelCounter}`);
-            if(btnCount) btnCount.innerText = commentsDB[activeQuoteId].length;
+            const btnCount = document.getElementById(`btnCommentCount`);
+            if(btnCount) btnCount.innerText = commentsDB[currentQuoteId].length;
         }
 
-        async function shareCurrentQuote(btnElement, idCounter) {
+        async function shareCurrentQuote(btnElement) {
             const shareBtn = btnElement;
             const originalBtnText = shareBtn.innerHTML;
             shareBtn.innerHTML = '<span>⏳</span>...';
             
-            const cardElement = document.getElementById(`cardToShare-${idCounter}`);
-            const actionsArea = document.getElementById(`actionsArea-${idCounter}`);
-            const currentQuote = document.getElementById(`quoteText-${idCounter}`).innerText;
+            const cardElement = document.getElementById(`cardToShare`);
+            const actionsArea = document.getElementById(`actionsArea`);
+            const currentQuoteText = document.querySelector('.quote-text').innerText;
             
             actionsArea.style.display = 'none'; 
 
@@ -531,7 +525,7 @@
                 const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
                 const file = new File([blob], 'NTrix-Quote.png', { type: 'image/png' });
                 
-                const shareText = `"${currentQuote}"\n\nPOWERED BY NTRIX IT SERVICES.\n🌐 More quotes: ${window.location.href}`;
+                const shareText = `"${currentQuoteText}"\n\nPOWERED BY NTRIX IT SERVICES.\n🌐 Read more quotes here: ${window.location.href}`;
                 const shareData = { title: 'NTRIX Energy', text: shareText, files: [file] };
 
                 if (navigator.canShare && navigator.canShare(shareData)) {
